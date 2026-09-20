@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجربة «كن باريستا» التفاعلية | مؤسسة التدريب المهني</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terracotta: {
+                            DEFAULT: '#D96B43',
+                            dark: '#B85028',
+                            light: '#E88B67',
+                            50: '#FDF6F3'
+                        },
+                        amberWood: {
+                            DEFAULT: '#B45309',
+                            dark: '#78350F',
+                            light: '#D97706',
+                            warm: '#8C4A27'
+                        },
+                        creamOat: {
+                            DEFAULT: '#FAF4EC',
+                            card: '#FFFDF9',
+                            dark: '#EFE3D3',
+                            border: '#E2D4C1'
+                        },
+                        matcha: {
+                            DEFAULT: '#40916C',
+                            light: '#52796F',
+                            bg: '#E8F5E9'
+                        },
+                        dustyCoral: {
+                            DEFAULT: '#E07A5F',
+                            light: '#F4A261',
+                            dark: '#C85A32'
+                        },
+                        mojitoMint: {
+                            DEFAULT: '#2A9D8F',
+                            light: '#76C893',
+                            bg: '#D8F3DC'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'warm': '0 10px 25px -5px rgba(217, 107, 67, 0.15), 0 8px 10px -6px rgba(180, 83, 9, 0.1)',
+                        'glow-coral': '0 0 20px rgba(224, 122, 95, 0.4)',
+                        'glow-matcha': '0 0 20px rgba(64, 145, 108, 0.4)',
+                        'inner-wood': 'inset 0 2px 6px rgba(0,0,0,0.15)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: #FAF4EC;
+            color: #4A3B32;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .neon-sign {
+            text-shadow: 0 0 8px rgba(217, 107, 67, 0.6), 0 0 15px rgba(217, 107, 67, 0.3);
+        }
+
+        .barista-wood-counter {
+            background: linear-gradient(180deg, #A0522D 0%, #8B4513 40%, #6A330B 100%);
+            border-top: 6px solid #D97706;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+
+        @keyframes steam {
+            0% { transform: translateY(0) scaleX(1); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-30px) scaleX(1.5); opacity: 0; }
+        }
+        .steam-particle {
+            animation: steam 2.5s infinite ease-out;
+        }
+
+        /* Soda Bubble animation for Mojitos */
+        @keyframes float-bubble {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-40px) scale(1.2); opacity: 0; }
+        }
+        .soda-bubble {
+            animation: float-bubble 1.8s infinite ease-in;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF4EC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D96B43;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-terracotta selection:text-white">
+
+    <!-- HEADER & BRANDING BAR -->
+    <header class="bg-creamOat-card border-b border-creamOat-border shadow-sm sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- VTC Logo & Header Text -->
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-12 h-12 rounded-2xl bg-terracotta flex items-center justify-center text-white font-extrabold text-2xl shadow-md transform hover:rotate-6 transition">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-terracotta-50 text-terracotta border border-terracotta/20">برنامج التدريب الفندقي</span>
+                        <span class="text-xs text-amberWood font-bold">مؤسسة التدريب المهني</span>
+                    </div>
+                    <h1 class="text-lg md:text-xl font-black text-amberWood-dark leading-tight">تجربة «كن باريستا» التفاعلية ☕🍹</h1>
+                    <p class="text-xs font-bold text-terracotta">إعداد وفكرة: تمارا الشباطات</p>
+                </div>
+            </div>
+
+            <!-- Header Controls & Stage Title -->
+            <div class="hidden sm:flex items-center gap-3">
+                <div id="header-stage-badge" class="px-3 py-1.5 rounded-xl bg-creamOat text-amberWood-dark font-bold text-sm border border-creamOat-border flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-terracotta animate-ping"></span>
+                    <span id="current-stage-title">الترحيب والجاهزية</span>
+                </div>
+                <button id="sound-toggle-btn" onclick="toggleAudio()" class="w-10 h-10 rounded-xl bg-creamOat hover:bg-creamOat-dark border border-creamOat-border text-amberWood transition flex items-center justify-center" title="كتم/تشغيل الصوت">
+                    <i class="fa-solid fa-volume-high text-lg" id="sound-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main class="flex-grow max-w-5xl w-full mx-auto p-3 sm:p-6 flex flex-col justify-center">
+
+        <!-- ================= STAGE 0: INTRO SCREEN ================= -->
+        <section id="stage-intro" class="bg-creamOat-card rounded-3xl p-6 md:p-10 shadow-warm border-2 border-creamOat-border text-center relative overflow-hidden transition-all duration-500">
+            <div class="absolute -top-12 -left-12 w-48 h-48 bg-terracotta/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-amberWood-light/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="max-w-2xl mx-auto relative z-10">
+                <div class="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-terracotta/10 text-terracotta font-bold text-sm mb-4">
+                    <span><i class="fa-solid fa-sparkles"></i> تجربة متسلسلة للقهوة والموهيتو</span>
+                    <span class="text-amberWood-dark font-extrabold">• إعداد وفكرة: تمارا الشباطات</span>
+                </div>
+                
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-amberWood-dark mb-4 leading-tight">
+                    هل تمتلك سرعة وشغف <span class="text-terracotta underline decoration-terracotta-light/50">الباريستا المحترف؟</span>
+                </h2>
+                
+                <p class="text-gray-700 text-base md:text-lg mb-6 leading-relaxed font-medium">
+                    عش تجربة صانع القهوة والمشروبات الباردة في <span class="font-bold text-amberWood">مؤسسة التدريب المهني</span>. ستتلقى سلسلة طلبات متنوعة متتالية من القهوة المختصة والموهيتو المنعش تحت ضغط الوقت!
+                </p>
+
+                <!-- Feature badges -->
+                <div class="flex flex-wrap justify-center gap-3 mb-6">
+                    <span class="px-3 py-1 rounded-xl bg-amberWood/10 text-amberWood-dark font-bold text-xs"><i class="fa-solid fa-mug-hot ml-1"></i> قهوة مختصة</span>
+                    <span class="px-3 py-1 rounded-xl bg-mojitoMint-bg text-mojitoMint font-bold text-xs"><i class="fa-solid fa-glass-water-droplet ml-1"></i> موهيتو منعش</span>
+                    <span class="px-3 py-1 rounded-xl bg-dustyCoral/10 text-dustyCoral font-bold text-xs"><i class="fa-solid fa-list-check ml-1"></i> طلبات متتالية</span>
+                </div>
+
+                <!-- Hero Steps Visual Bar -->
+                <div class="my-6 p-6 rounded-2xl bg-creamOat border border-creamOat-border flex flex-col sm:flex-row items-center justify-around gap-4 shadow-inner">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-14 h-14 rounded-2xl bg-terracotta text-white flex items-center justify-center text-xl shadow-lg">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <span class="font-bold text-xs text-amberWood-dark">1. استلام الطلبات المتتالية</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-amberWood/40 hidden sm:block text-lg"></i>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-14 h-14 rounded-2xl bg-mojitoMint text-white flex items-center justify-center text-xl shadow-lg">
+                            <i class="fa-solid fa-whiskey-glass"></i>
+                        </div>
+                        <span class="font-bold text-xs text-amberWood-dark">2. تحضير القهوة والموهيتو</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-amberWood/40 hidden sm:block text-lg"></i>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-14 h-14 rounded-2xl bg-matcha text-white flex items-center justify-center text-xl shadow-lg">
+                            <i class="fa-solid fa-paintbrush"></i>
+                        </div>
+                        <span class="font-bold text-xs text-amberWood-dark">3. فن اللاتيه والزينة</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-left text-amberWood/40 hidden sm:block text-lg"></i>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-14 h-14 rounded-2xl bg-amberWood text-white flex items-center justify-center text-xl shadow-lg">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <span class="font-bold text-xs text-amberWood-dark">4. بطاقة التقييم</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+                    <button onclick="startExperience()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-terracotta hover:bg-terracotta-dark text-white font-extrabold text-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3">
+                        <span>ابدأ الوردية وانطلق كباريستا</span>
+                        <i class="fa-solid fa-circle-play text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STAGE 1: SEQUENTIAL ORDER SELECTION ================= -->
+        <section id="stage-order" class="hidden bg-creamOat-card rounded-3xl p-5 md:p-8 shadow-warm border-2 border-creamOat-border transition-all duration-500">
+            
+            <!-- Order Sequence Tracker Header -->
+            <div class="flex items-center justify-between mb-4 bg-creamOat p-3 rounded-2xl border border-creamOat-border">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-terracotta animate-pulse"></span>
+                    <span class="font-black text-amberWood-dark text-sm sm:text-base">سلسلة الطلبات المتتالية:</span>
+                    <span id="order-sequence-indicator" class="px-2.5 py-0.5 rounded-lg bg-terracotta text-white font-black text-xs">الطلب 1 من 3</span>
+                </div>
+                <div class="flex gap-1.5" id="order-dots-container">
+                    <!-- Dots generated dynamically -->
+                </div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-6 items-stretch">
+                
+                <!-- Left Side: Order Ticket Card -->
+                <div class="w-full lg:w-5/12 bg-creamOat rounded-2xl p-5 border-2 border-dashed border-amberWood/30 flex flex-col justify-between relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-creamOat-border pb-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <i id="ticket-icon" class="fa-solid fa-receipt text-terracotta text-xl"></i>
+                                <span class="font-black text-amberWood-dark text-base" id="ticket-number">بطاقة طلب الزبون #1</span>
+                            </div>
+                            <span id="ticket-badge" class="bg-terracotta/10 text-terracotta font-bold text-xs px-2.5 py-1 rounded-full">طلب قهوة ☕</span>
+                        </div>
+
+                        <!-- Ticket Details -->
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-creamOat-border mb-4">
+                            <h3 class="text-xl font-black text-terracotta mb-1 text-center" id="ticket-title">آيس لاتيه شوفان مميز ☕🧊</h3>
+                            <p class="text-xs text-gray-500 text-center mb-4" id="ticket-note">ملاحظة الزبون: "المشروب بارد ومُنعش وبدون سكر!"</p>
+                            
+                            <div class="space-y-2 text-sm" id="ticket-requirements-list">
+                                <!-- Dynamic requirements injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress preview of ingredients -->
+                    <div class="mt-2 bg-white/80 p-3 rounded-xl border border-creamOat-border text-center">
+                        <span class="text-xs font-bold text-gray-600 block mb-2">المكونات المختارة في الكوب:</span>
+                        <div class="flex items-center justify-center gap-1.5 flex-wrap" id="assembled-ingredients-list">
+                            <span class="text-xs text-gray-400 font-medium italic">انقر على المكونات لإضافتها...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Ingredients Tray -->
+                <div class="w-full lg:w-7/12 flex flex-col justify-between">
+                    <div>
+                        <div class="mb-4 flex justify-between items-end">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-black text-amberWood-dark">اختر المكونات المطابقة للطلب 🎯</h3>
+                                <p class="text-xs sm:text-sm text-gray-600">انقر على المكونات الصحيحة فقط لإعداد وصفة الزبون</p>
+                            </div>
+                        </div>
+
+                        <!-- Filter Tabs for Ingredients -->
+                        <div class="flex gap-2 mb-3 overflow-x-auto pb-1">
+                            <button onclick="filterIngredientCategory('all')" class="ingredient-tab active px-3 py-1 rounded-xl bg-amberWood text-white text-xs font-bold shadow-xs">الكل</button>
+                            <button onclick="filterIngredientCategory('coffee')" class="ingredient-tab px-3 py-1 rounded-xl bg-creamOat text-amberWood text-xs font-bold hover:bg-creamOat-dark">القهوة والحليب</button>
+                            <button onclick="filterIngredientCategory('mojito')" class="ingredient-tab px-3 py-1 rounded-xl bg-creamOat text-mojitoMint text-xs font-bold hover:bg-creamOat-dark">الموهيتو والانتعاش</button>
+                        </div>
+
+                        <!-- Ingredients Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-2 max-h-[340px] overflow-y-auto p-1" id="ingredients-grid">
+                            <!-- Items inserted dynamically via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="pt-4 border-t border-creamOat-border flex items-center justify-between gap-3">
+                        <button onclick="resetOrderSelection()" class="px-4 py-2.5 rounded-xl bg-creamOat hover:bg-creamOat-dark text-amberWood font-bold text-sm transition">
+                            <i class="fa-solid fa-rotate-right ml-1"></i> إفراغ الكوب
+                        </button>
+                        
+                        <button id="submit-order-btn" onclick="validateOrderSelection()" class="flex-grow px-6 py-3 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white font-extrabold text-base shadow-md transition flex items-center justify-center gap-2">
+                            <span id="submit-btn-text">تأكيد المكونات والانتقال للتحضير</span>
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STAGE 2: PREPARATION & SPEED CHALLENGE ================= -->
+        <section id="stage-prep" class="hidden bg-creamOat-card rounded-3xl p-5 md:p-8 shadow-warm border-2 border-creamOat-border transition-all duration-500">
+            <!-- Header bar with Timer -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-creamOat p-4 rounded-2xl border border-creamOat-border">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-dustyCoral text-white flex items-center justify-center text-2xl shadow">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-black text-amberWood-dark" id="prep-station-title">تحدي تحضير المشروب بسرعة</h3>
+                        <p class="text-xs text-gray-600" id="prep-station-subtitle">نفذ خطوات الاستخلاص وسكب المكونات بالترتيب الصحيح!</p>
+                    </div>
+                </div>
+
+                <!-- Digital Timer Display -->
+                <div class="flex items-center gap-2 bg-amberWood-dark text-white px-5 py-2.5 rounded-2xl shadow-inner border-2 border-dustyCoral">
+                    <i class="fa-regular fa-clock text-dustyCoral text-xl animate-spin"></i>
+                    <span class="text-xs font-bold text-creamOat-dark">الوقت المتبقي:</span>
+                    <span id="timer-display" class="font-mono text-3xl font-black text-dustyCoral tracking-wider">60</span>
+                    <span class="text-xs text-creamOat-dark">ثانية</span>
+                </div>
+            </div>
+
+            <!-- Workstation Counter -->
+            <div class="barista-wood-counter rounded-2xl p-6 text-white relative shadow-xl overflow-hidden mb-6">
+                <!-- VTC Branding Badge -->
+                <div class="absolute top-2 right-4 text-xs font-extrabold tracking-wider text-terracotta-light opacity-90 neon-sign">
+                    <i class="fa-solid fa-bolt ml-1"></i> محطة مؤسسة التدريب المهني | <span id="prep-mode-badge">إعداد القهوة</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center pt-4">
+                    
+                    <!-- Controls Left -->
+                    <div class="bg-black/20 backdrop-blur-md rounded-xl p-4 border border-white/10 flex flex-col gap-3" id="prep-controls-left">
+                        <!-- Dynamic Buttons Step 1 & 2 -->
+                    </div>
+
+                    <!-- Glass Visual Simulator Center -->
+                    <div class="flex flex-col items-center justify-center py-2">
+                        <!-- Glass Cup Visual -->
+                        <div class="relative w-36 h-48 border-4 border-white/70 border-t-0 rounded-b-3xl bg-white/10 backdrop-blur-sm overflow-hidden flex flex-col justify-end p-1 shadow-2xl" id="cup-container">
+                            <!-- Steam visual (For Coffee) -->
+                            <div id="cup-steam" class="hidden absolute -top-8 left-1/2 -translate-x-1/2 flex gap-1">
+                                <span class="w-2 h-6 bg-white/40 rounded-full steam-particle"></span>
+                                <span class="w-2 h-8 bg-white/40 rounded-full steam-particle" style="animation-delay: 0.5s"></span>
+                                <span class="w-2 h-6 bg-white/40 rounded-full steam-particle" style="animation-delay: 0.9s"></span>
+                            </div>
+
+                            <!-- Soda Bubbles visual (For Mojito) -->
+                            <div id="cup-bubbles" class="hidden absolute inset-0 pointer-events-none flex justify-around items-end pb-2">
+                                <span class="w-2 h-2 bg-white/60 rounded-full soda-bubble"></span>
+                                <span class="w-1.5 h-1.5 bg-white/60 rounded-full soda-bubble" style="animation-delay: 0.4s"></span>
+                                <span class="w-2.5 h-2.5 bg-white/60 rounded-full soda-bubble" style="animation-delay: 0.8s"></span>
+                            </div>
+
+                            <!-- Dynamic Liquid Fill Layers -->
+                            <div id="layer-4" class="w-full h-0 transition-all duration-500 flex items-center justify-center text-[10px] font-bold overflow-hidden"></div>
+                            <div id="layer-3" class="w-full h-0 transition-all duration-500 flex items-center justify-center text-[10px] font-bold overflow-hidden"></div>
+                            <div id="layer-2" class="w-full h-0 transition-all duration-500 flex items-center justify-center text-[10px] font-bold overflow-hidden"></div>
+                            <div id="layer-1" class="w-full h-0 transition-all duration-500 flex items-center justify-center text-[10px] font-bold overflow-hidden"></div>
+                        </div>
+                        <span class="text-xs font-bold text-amber-100 mt-2" id="cup-label">كوب التقديم الشفاف</span>
+                    </div>
+
+                    <!-- Controls Right -->
+                    <div class="bg-black/20 backdrop-blur-md rounded-xl p-4 border border-white/10 flex flex-col gap-3" id="prep-controls-right">
+                        <!-- Dynamic Buttons Step 3 & 4 -->
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Prep Action Footer -->
+            <div class="flex justify-between items-center">
+                <span class="text-xs font-bold text-gray-500" id="prep-step-counter">الخطوات المكتملة: 0 / 4</span>
+                <button id="finish-prep-btn" onclick="finishPreparationStage()" disabled class="px-8 py-3.5 rounded-xl bg-matcha hover:bg-matcha-light text-white font-black text-lg shadow-lg transition opacity-50 cursor-not-allowed flex items-center gap-3">
+                    <span id="finish-prep-btn-text">متابعة التحدي 🎨</span>
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= STAGE 3: LATTE ART & GARNISHING CHALLENGE ================= -->
+        <section id="stage-latteart" class="hidden bg-creamOat-card rounded-3xl p-5 md:p-8 shadow-warm border-2 border-creamOat-border transition-all duration-500">
+            <div class="text-center max-w-xl mx-auto mb-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-matcha-bg text-matcha font-bold text-xs mb-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> تحدي اللمسة الفنية والتزيين
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-black text-amberWood-dark" id="art-stage-title">تحدي فن اللاتيه والتزيين 🎨</h3>
+                <p class="text-sm text-gray-600" id="art-stage-desc">استخدم إصبعك أو الفأرة لرسم رغوة الحليب أو توزيع زينة المشروب المنعشة</p>
+            </div>
+
+            <div class="flex flex-col items-center justify-center my-4">
+                <!-- Canvas Workspace Container -->
+                <div class="relative p-4 bg-amberWood-dark rounded-full shadow-2xl border-8 border-creamOat-dark">
+                    <!-- Glass / Cup Outer Canvas -->
+                    <canvas id="latte-canvas" width="280" height="280" class="rounded-full cursor-crosshair touch-none shadow-inner"></canvas>
+                    
+                    <!-- Reset Canvas Overlay -->
+                    <button onclick="clearLatteCanvas()" class="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-white text-amberWood hover:bg-creamOat font-bold shadow-md transition flex items-center justify-center text-sm" title="إعادة الرسم والتزيين">
+                        <i class="fa-solid fa-eraser"></i>
+                    </button>
+                </div>
+
+                <!-- Accuracy Gauge & Feedback -->
+                <div class="mt-4 flex items-center gap-4 bg-creamOat px-6 py-3 rounded-2xl border border-creamOat-border">
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-gray-500 block">دقة التزيين:</span>
+                        <span id="latte-score-percent" class="text-2xl font-black text-matcha">0%</span>
+                    </div>
+                    <div class="h-8 w-0.5 bg-creamOat-border"></div>
+                    <p id="latte-feedback-text" class="text-xs font-bold text-amberWood max-w-[200px]">
+                        قم بتمرير الفأرة أو إصبعك على المشروب لرسم الشكل وتزيينه!
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-creamOat-border">
+                <button onclick="clearLatteCanvas()" class="px-4 py-2.5 rounded-xl bg-creamOat hover:bg-creamOat-dark text-amberWood font-bold text-sm">
+                    إعادة المحاولة
+                </button>
+                <button onclick="finishLatteArtStage()" class="px-8 py-3.5 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white font-black text-base shadow-lg transition flex items-center gap-2">
+                    <span>اعتماد التزيين والتأهل لموقف الزبون</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= STAGE 4: CUSTOMER SITUATION ================= -->
+        <section id="stage-customer" class="hidden bg-creamOat-card rounded-3xl p-5 md:p-8 shadow-warm border-2 border-creamOat-border transition-all duration-500">
+            <div class="max-w-2xl mx-auto">
+                
+                <div class="text-center mb-6">
+                    <span class="px-3 py-1 rounded-full bg-amberWood/10 text-amberWood font-bold text-xs mb-2 inline-block">موقف الخدمة السريعة</span>
+                    <h3 class="text-2xl sm:text-3xl font-black text-amberWood-dark">موقف حقيقي مع الزبون 💬</h3>
+                </div>
+
+                <!-- Customer Dialogue Card -->
+                <div class="bg-creamOat rounded-2xl p-6 border-2 border-creamOat-border mb-6 relative shadow-sm flex flex-col sm:flex-row items-center gap-6">
+                    <!-- Customer Avatar -->
+                    <div class="w-24 h-24 rounded-full bg-dustyCoral-light flex-shrink-0 flex items-center justify-center text-4xl text-white shadow-md border-4 border-white">
+                        <i class="fa-solid fa-user-ninja"></i>
+                    </div>
+
+                    <!-- Speech Bubble -->
+                    <div class="bg-white p-4 rounded-2xl border border-creamOat-border relative flex-grow shadow-xs">
+                        <div class="font-bold text-gray-800 text-base mb-1">الزبون أحمد:</div>
+                        <p class="text-gray-700 font-medium text-sm sm:text-base leading-relaxed" id="customer-dialogue-text">
+                            "عذرًا يا باريستا! المشروب يبدو رائعاً ومُنعشاً، ولكنني طلبت أن يكون <strong class="text-dustyCoral underline">بدون سكر</strong> مطلقاً بسباب الحمية! ماذا يمكنك أن تفعل؟"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                <div class="space-y-3" id="customer-options-container">
+                    <button onclick="selectCustomerResponse('best')" class="w-full text-right p-4 rounded-2xl bg-white hover:bg-creamOat border-2 border-creamOat-border hover:border-matcha transition shadow-sm group flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-matcha-bg text-matcha font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-matcha group-hover:text-white transition">أ</div>
+                        <div>
+                            <div class="font-black text-amberWood-dark text-base mb-0.5">"أعتذر منك جداً! سأقوم بتحضير كوب طازج لك فوراً وبكل سرور!"</div>
+                            <div class="text-xs text-gray-500">تقديم اعتذار راقٍ واستبدال المشروب فوراً لبناء ولاء الزبون.</div>
+                        </div>
+                    </button>
+
+                    <button onclick="selectCustomerResponse('medium')" class="w-full text-right p-4 rounded-2xl bg-white hover:bg-creamOat border-2 border-creamOat-border hover:border-amberWood transition shadow-sm group flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-creamOat text-amberWood font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-amberWood group-hover:text-white transition">ب</div>
+                        <div>
+                            <div class="font-black text-amberWood-dark text-base mb-0.5">"أنا متأكد أنني اتبعت الوصفة، يمكنك تذوقه مرة أخرى للتأكد!"</div>
+                            <div class="text-xs text-gray-500">الجدال الخفيف مع الزبون ومحاولة إقناعه.</div>
+                        </div>
+                    </button>
+
+                    <button onclick="selectCustomerResponse('bad')" class="w-full text-right p-4 rounded-2xl bg-white hover:bg-creamOat border-2 border-creamOat-border hover:border-dustyCoral transition shadow-sm group flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-dustyCoral/10 text-dustyCoral font-bold flex items-center justify-center flex-shrink-0 group-hover:bg-dustyCoral group-hover:text-white transition">ج</div>
+                        <div>
+                            <div class="font-black text-amberWood-dark text-base mb-0.5">"الركن مزدحم جداً الآن، أرجو منك قبوله كما هو هذه المرة!"</div>
+                            <div class="text-xs text-gray-500">تجاهل طلب الزبون بسبب ضغط العمل.</div>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= STAGE 5: FINAL RESULT & CERTIFICATE ================= -->
+        <section id="stage-result" class="hidden bg-creamOat-card rounded-3xl p-5 md:p-8 shadow-warm border-2 border-creamOat-border transition-all duration-500">
+            <div class="max-w-3xl mx-auto">
+                
+                <!-- Title Header -->
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-matcha-bg text-matcha font-extrabold text-sm mb-2 shadow-xs">
+                        <i class="fa-solid fa-award"></i> اكتمال وردية الباريستا بنجاح!
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-amberWood-dark">نتيجة تجربة «كن باريستا» ⭐</h2>
+                    <p class="text-gray-600 text-sm mt-1">بطاقة الأداء الصادرة من ركن مؤسسة التدريب المهني</p>
+                </div>
+
+                <!-- Printable / Shareable Certificate Card -->
+                <div id="certificate-card" class="bg-gradient-to-b from-white to-creamOat rounded-3xl p-6 sm:p-8 border-4 border-amberWood/20 shadow-xl relative overflow-hidden mb-8">
+                    <div class="absolute -right-10 -bottom-10 text-creamOat-dark/30 text-9xl pointer-events-none">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+
+                    <!-- Top Cert Header -->
+                    <div class="flex items-center justify-between border-b-2 border-creamOat-border pb-4 mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-terracotta text-white flex items-center justify-center text-2xl shadow">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-amberWood-dark text-lg leading-tight">مؤسسة التدريب المهني</h4>
+                                <span class="text-xs text-terracotta font-bold block">برنامج إعداد صانع القهوة والمشروبات (الباريستا)</span>
+                                <span class="text-[11px] text-amberWood-warm font-bold block mt-0.5">إعداد وفكرة: تمارا الشباطات</span>
+                            </div>
+                        </div>
+                        <div class="text-left">
+                            <span class="block text-xs text-gray-500 font-bold">الدرجة الكلية</span>
+                            <span id="final-total-score" class="text-3xl font-black text-terracotta">96%</span>
+                        </div>
+                    </div>
+
+                    <!-- User Name Field -->
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-gray-500 mb-1">اسم الباريستا المبدع:</label>
+                        <input type="text" id="barista-name-input" value="زائر مؤسسة التدريب المهني" oninput="updateCertName(this.value)" class="w-full bg-white border-2 border-creamOat-border focus:border-terracotta rounded-xl px-4 py-2 font-black text-amberWood-dark text-lg focus:outline-none transition">
+                    </div>
+
+                    <!-- Performance Radar Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <!-- Speed Metric -->
+                        <div class="bg-white p-3.5 rounded-2xl border border-creamOat-border shadow-xs">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-xs font-bold text-gray-700"><i class="fa-solid fa-bolt text-amberWood ml-1"></i> سرعة التنفيذ:</span>
+                                <span id="score-speed-text" class="text-xs font-black text-amberWood">⚡⚡⚡⚡⚡</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-creamOat rounded-full overflow-hidden">
+                                <div id="score-speed-bar" class="h-full bg-amberWood transition-all duration-1000" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Accuracy Metric -->
+                        <div class="bg-white p-3.5 rounded-2xl border border-creamOat-border shadow-xs">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-xs font-bold text-gray-700"><i class="fa-solid fa-bullseye text-terracotta ml-1"></i> دقة وصفات القهوة والموهيتو:</span>
+                                <span id="score-accuracy-text" class="text-xs font-black text-terracotta">🎯🎯🎯🎯🎯</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-creamOat rounded-full overflow-hidden">
+                                <div id="score-accuracy-bar" class="h-full bg-terracotta transition-all duration-1000" style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Service Metric -->
+                        <div class="bg-white p-3.5 rounded-2xl border border-creamOat-border shadow-xs">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-xs font-bold text-gray-700"><i class="fa-solid fa-heart text-matcha ml-1"></i> خدمة العملاء ورضا الزبون:</span>
+                                <span id="score-service-text" class="text-xs font-black text-matcha">🌟🌟🌟🌟🌟</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-creamOat rounded-full overflow-hidden">
+                                <div id="score-service-bar" class="h-full bg-matcha transition-all duration-1000" style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pressure Handling Metric -->
+                        <div class="bg-white p-3.5 rounded-2xl border border-creamOat-border shadow-xs">
+                            <div class="flex justify-between items-center mb-1.5">
+                                <span class="text-xs font-bold text-gray-700"><i class="fa-solid fa-fire text-dustyCoral ml-1"></i> التنوع والعمل تحت الضغط:</span>
+                                <span id="score-pressure-text" class="text-xs font-black text-dustyCoral">🔥🔥🔥🔥🔥</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-creamOat rounded-full overflow-hidden">
+                                <div id="score-pressure-bar" class="h-full bg-dustyCoral transition-all duration-1000" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motivational Message Box -->
+                    <div class="bg-matcha-bg/60 border border-matcha/30 p-4 rounded-2xl text-center mb-6">
+                        <p class="font-black text-matcha-light text-base sm:text-lg mb-1">
+                            "لديك مهارات استثنائية تمكنك من النجاح في مجال القهوة المختصة والمشروبات! ☕🍹✨"
+                        </p>
+                        <p class="text-xs text-gray-600">هذه التجربة هي خطوتك الأولى لنيل شهادة مهنية معتمدة.</p>
+                    </div>
+
+                    <!-- QR Code CTA Section -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-creamOat-border bg-white/60 p-4 rounded-2xl">
+                        <div class="text-right">
+                            <h5 class="font-black text-amberWood-dark text-base">اكتشف تخصص الباريستا والضيافة</h5>
+                            <p class="text-xs text-gray-600">سجل في دورات مؤسسة التدريب المهني واصنع مستقبلك.</p>
+                        </div>
+
+                        <!-- Simulated QR Code -->
+                        <div class="flex items-center gap-3 bg-white p-2 rounded-xl border border-creamOat-border shadow-xs">
+                            <div class="w-16 h-16 bg-amberWood-dark p-1 rounded-lg flex items-center justify-center">
+                                <svg class="w-full h-full text-white fill-current" viewBox="0 0 24 24">
+                                    <path d="M2,2H10V10H2V2M4,4V8H8V4H4M11,2H13V4H11V2M14,2H22V10H14V2M16,4V8H20V4H16M2,14H10V22H2V14M4,16V20H8V16H4M11,11H13V13H11V11M14,11H16V13H14V11M18,11H20V13H18V11M11,14H13V16H11V14M14,14H18V16H14V14M19,14H22V18H19V14M11,18H13V22H11V18M14,18H16V20H14V18M17,19H21V22H17V19Z"/>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-500 max-w-[80px] leading-tight">امسح الكود للتسجيل في التخصص</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="openPhotoBoothModal()" class="px-6 py-3.5 rounded-2xl bg-amberWood hover:bg-amberWood-dark text-white font-extrabold text-base shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-camera text-xl"></i>
+                        <span>استوديو الصور (Photo Booth) 📸</span>
+                    </button>
+
+                    <button onclick="restartFullExperience()" class="px-6 py-3.5 rounded-2xl bg-creamOat hover:bg-creamOat-dark text-amberWood-dark font-extrabold text-base border border-creamOat-border transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right text-xl"></i>
+                        <span>تكرار وردية جديدة</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PHOTO BOOTH MODAL -->
+    <div id="photobooth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-creamOat-card rounded-3xl max-w-lg w-full p-6 shadow-2xl border-2 border-creamOat-border relative">
+            <button onclick="closePhotoBoothModal()" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-creamOat text-amberWood hover:bg-creamOat-dark font-bold flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <span class="text-xs font-bold px-3 py-1 bg-terracotta-50 text-terracotta rounded-full">التقط ذكرى تخرجك</span>
+                <h3 class="text-2xl font-black text-amberWood-dark mt-1">تذكار باريستا التدريب المهني 📸</h3>
+            </div>
+
+            <div class="relative w-full aspect-square bg-amberWood-dark rounded-2xl overflow-hidden shadow-inner border-4 border-white flex flex-col items-center justify-between p-6 text-white text-center">
+                <div class="bg-terracotta/90 px-4 py-1.5 rounded-full text-xs font-black shadow">
+                    مؤسسة التدريب المهني | VTC Barista
+                </div>
+
+                <div class="my-auto flex flex-col items-center">
+                    <div class="w-28 h-28 rounded-full bg-terracotta text-creamOat flex items-center justify-center text-5xl shadow-2xl border-4 border-amber-300 relative">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span class="absolute -bottom-2 -right-2 bg-matcha text-white text-xs px-2 py-0.5 rounded-full font-bold">باريستا</span>
+                    </div>
+                    <h4 id="photobooth-user-name" class="font-black text-xl text-amber-100 mt-3">زائر مؤسسة التدريب المهني</h4>
+                    <p class="text-xs text-amber-200/80 font-bold">أتقن صناعة القهوة والموهيتو بنجاح ✨</p>
+                </div>
+
+                <div class="w-full bg-black/40 backdrop-blur-md p-3 rounded-xl border border-white/20 flex items-center justify-around">
+                    <div class="text-center">
+                        <span class="text-[10px] block text-amber-200">النتيجة</span>
+                        <span id="photobooth-score" class="font-black text-lg text-matcha-light">96%</span>
+                    </div>
+                    <div class="h-6 w-0.5 bg-white/20"></div>
+                    <div class="text-center">
+                        <span class="text-[10px] block text-amber-200">التخصص</span>
+                        <span class="font-black text-xs text-white">إعداد المشروبات والقهوة</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 flex gap-3">
+                <button onclick="downloadBadgeCard()" class="flex-grow py-3 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white font-extrabold text-sm shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>حفظ بطاقة التذكار</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-creamOat border-t border-creamOat-border py-4 px-4 text-center text-xs text-amberWood-warm font-medium">
+        <p>جميع الحقوق محفوظة © مؤسسة التدريب المهني - تجربة «كن باريستا» التفاعلية | <span class="font-bold text-terracotta">إعداد وفكرة: تمارا الشباطات</span></p>
+    </footer>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const state = {
+            currentStage: 0,
+            soundEnabled: true,
+            userName: "زائر مؤسسة التدريب المهني",
+            
+            // Order sequence control
+            currentOrderIndex: 0,
+            totalOrdersInShift: 3,
+            completedOrdersCount: 0,
+            selectedIngredients: [],
+            
+            // Current Active Order object
+            activeOrder: null,
+
+            // Stage 2 Prep
+            prepStep: 0,
+            timeLeft: 60,
+            timerInterval: null,
+            prepStartTime: 0,
+
+            // Stage 3 Latte Art / Garnish
+            latteScore: 0,
+
+            // Stage 4 Customer answer
+            customerChoice: 'best',
+
+            // Scores tracking
+            scores: {
+                speed: 90,
+                accuracy: 100,
+                service: 100,
+                pressure: 95,
+                total: 96
+            }
+        };
+
+        // Comprehensive Pool of Diverse Coffee & Mojito Orders
+        const ordersPool = [
+            {
+                id: 'iced_oat_latte',
+                type: 'coffee',
+                title: 'آيس لاتيه شوفان مميز ☕🧊',
+                badge: 'قهوة باردة ☕',
+                badgeColor: 'bg-terracotta/10 text-terracotta',
+                note: 'ملاحظة الزبون: "المشروب بارد، مضاعف، وبدون سكر!"',
+                requirements: [
+                    { label: 'نوع القهوة:', val: 'Espresso مضاعف' },
+                    { label: 'نوع الحليب:', val: 'حليب شوفان' },
+                    { label: 'الدرجة:', val: 'ثلج كثيف 🧊' },
+                    { label: 'الإضافة:', val: 'بدون سكر 🚫' }
+                ],
+                requiredIngredients: ['espresso_double', 'oat_milk', 'ice_heavy', 'no_sugar'],
+                prepType: 'coffee',
+                prepStepsText: [
+                    '1. طحن وحبس البورتفلتر',
+                    '2. بدأ استخلاص الإسبريسو',
+                    '3. إضافة مكعبات الثلج',
+                    '4. سكب حليب الشوفان'
+                ]
+            },
+            {
+                id: 'berry_mint_mojito',
+                type: 'mojito',
+                title: 'موهيتو التوت والنعناع المنعش 🫐🌿',
+                badge: 'موهيتو بارد 🍹',
+                badgeColor: 'bg-mojitoMint-bg text-mojitoMint',
+                note: 'ملاحظة الزبون: "مشروب موهيتو فوار بحبيبات التوت والنعناع الطازج!"',
+                requirements: [
+                    { label: 'الأساس المنعش:', val: 'نعناع طازج 🌿 + شرائح ليمون 🍋' },
+                    { label: 'النكهة غنية:', val: 'سيروب توت مشكل 🫐' },
+                    { label: 'الفوران والثلج:', val: 'سودا فوارة 🫧 + ثلج 🧊' }
+                ],
+                requiredIngredients: ['mint_leaves', 'lime_slices', 'berry_syrup', 'soda_water', 'ice_heavy'],
+                prepType: 'mojito',
+                prepStepsText: [
+                    '1. هرس النعناع والليمون في الكوب',
+                    '2. إضافة سيروب التوت المركب',
+                    '3. وضع مكعبات الثلج النقي',
+                    '4. سكب السودا الفوارة المنعشة'
+                ]
+            },
+            {
+                id: 'passion_fruit_mojito',
+                type: 'mojito',
+                title: 'موهيتو الباشن فروت الصيفي 🥭✨',
+                badge: 'موهيتو صيفي 🍹',
+                badgeColor: 'bg-amber-100 text-amber-800',
+                note: 'ملاحظة الزبون: "حامض حلو غني بباشن فروت وسودا فورية!"',
+                requirements: [
+                    { label: 'الأساس:', val: 'نعناع طازج 🌿 + شرائح ليمون 🍋' },
+                    { label: 'السيروب:', val: 'سيروب باشن فروت 🥭' },
+                    { label: 'المشروب:', val: 'سودا فوارة 🫧 + ثلج 🧊' }
+                ],
+                requiredIngredients: ['mint_leaves', 'lime_slices', 'passion_syrup', 'soda_water', 'ice_heavy'],
+                prepType: 'mojito',
+                prepStepsText: [
+                    '1. هرس النعناع وقطع الليمون',
+                    '2. سكب سيروب الباشن فروت الذهبي',
+                    '3. إملاء الكوب بالثلج',
+                    '4. الغمر بالسودا الفوارة'
+                ]
+            },
+            {
+                id: 'hot_caramel_macchiato',
+                type: 'coffee',
+                title: 'كراميل ماكياتو دافئ ☕🍯',
+                badge: 'قهوة ساخنة ☕',
+                badgeColor: 'bg-amberWood/10 text-amberWood',
+                note: 'ملاحظة الزبون: "قهوة دافئة غنية برغوة الحليب وسيروب الكراميل!"',
+                requirements: [
+                    { label: 'الأساس:', val: 'Espresso سنقل' },
+                    { label: 'الحليب:', val: 'حليب كامل الدسم مبخر' },
+                    { label: 'النكهة:', val: 'سيروب كراميل غني 🍯' }
+                ],
+                requiredIngredients: ['espresso_single', 'cow_milk', 'caramel_syrup'],
+                prepType: 'coffee',
+                prepStepsText: [
+                    '1. طحن وضغط البن',
+                    '2. استخلاص الإسبريسو',
+                    '3. تبخير وسكب الحليب',
+                    '4. تزين بسيروب الكراميل'
+                ]
+            }
+        ];
+
+        // Complete Master Ingredients Database
+        const masterIngredients = [
+            // Coffee & Milk category
+            { id: 'espresso_double', name: 'Espresso مضاعف', category: 'coffee', icon: 'fa-solid fa-mug-saucer', color: 'bg-amberWood-dark text-white' },
+            { id: 'espresso_single', name: 'Espresso سنقل', category: 'coffee', icon: 'fa-solid fa-cup-taster', color: 'bg-amberWood text-white' },
+            { id: 'oat_milk', name: 'حليب شوفان', category: 'coffee', icon: 'fa-solid fa-bottle-droplet', color: 'bg-yellow-100 text-amber-900 border-amber-300' },
+            { id: 'cow_milk', name: 'حليب كامل الدسم', category: 'coffee', icon: 'fa-solid fa-cow', color: 'bg-blue-50 text-blue-900 border-blue-200' },
+            
+            // Mojito & Mixology category
+            { id: 'mint_leaves', name: 'نعناع طازج 🌿', category: 'mojito', icon: 'fa-solid fa-leaf', color: 'bg-emerald-100 text-emerald-900 border-emerald-300' },
+            { id: 'lime_slices', name: 'شرائح ليمون 🍋', category: 'mojito', icon: 'fa-solid fa-lemon', color: 'bg-yellow-200 text-yellow-900 border-yellow-400' },
+            { id: 'soda_water', name: 'سودا فوارة 🫧', category: 'mojito', icon: 'fa-solid fa-bottle-water', color: 'bg-cyan-100 text-cyan-900 border-cyan-300' },
+            { id: 'berry_syrup', name: 'سيروب توت 🫐', category: 'mojito', icon: 'fa-solid fa-wine-bottle', color: 'bg-purple-100 text-purple-900 border-purple-300' },
+            { id: 'passion_syrup', name: 'باشن فروت 🥭', category: 'mojito', icon: 'fa-solid fa-jar text-amber-600', color: 'bg-orange-100 text-orange-900 border-orange-300' },
+            { id: 'cane_sugar', name: 'سيروب سكر 🍯', category: 'mojito', icon: 'fa-solid fa-cubes-stacked', color: 'bg-amber-50 text-amber-900' },
+
+            // General Extras
+            { id: 'ice_heavy', name: 'ثلج كثيف 🧊', category: 'coffee', icon: 'fa-solid fa-cubes', color: 'bg-blue-100 text-blue-800' },
+            { id: 'no_sugar', name: 'بدون سكر 🚫', category: 'coffee', icon: 'fa-solid fa-ban', color: 'bg-gray-100 text-gray-700' },
+            { id: 'caramel_syrup', name: 'شراب كراميل 🍯', category: 'coffee', icon: 'fa-solid fa-jar', color: 'bg-amber-100 text-amber-800' }
+        ];
+
+        let audioCtx = null;
+        function playSoundEffect(type) {
+            if (!state.soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    osc.frequency.setValueAtTime(783.99, now + 0.2);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                } else if (type === 'pour') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(300, now);
+                    osc.frequency.linearRampToValueAtTime(550, now + 0.25);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                }
+            } catch (e) { console.log(e); }
+        }
+
+        function toggleAudio() {
+            state.soundEnabled = !state.soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            icon.className = state.soundEnabled ? "fa-solid fa-volume-high text-lg" : "fa-solid fa-volume-xmark text-lg text-dustyCoral";
+        }
+
+        function switchStage(stageNum) {
+            state.currentStage = stageNum;
+            
+            document.getElementById('stage-intro').classList.add('hidden');
+            document.getElementById('stage-order').classList.add('hidden');
+            document.getElementById('stage-prep').classList.add('hidden');
+            document.getElementById('stage-latteart').classList.add('hidden');
+            document.getElementById('stage-customer').classList.add('hidden');
+            document.getElementById('stage-result').classList.add('hidden');
+
+            const titles = [
+                "الترحيب والجاهزية",
+                "المحطة 1: سلسلة طلبات الزبائن",
+                "المحطة 2: تحضير المشروب والسرعة",
+                "المحطة 3: فن اللاتيه والتزيين",
+                "المحطة 4: موقف مع الزبون",
+                "شهادة الباريستا والنتيجة"
+            ];
+            document.getElementById('current-stage-title').innerText = titles[stageNum];
+
+            if (stageNum === 0) document.getElementById('stage-intro').classList.remove('hidden');
+            if (stageNum === 1) {
+                document.getElementById('stage-order').classList.remove('hidden');
+                loadCurrentOrderTicket();
+            }
+            if (stageNum === 2) {
+                document.getElementById('stage-prep').classList.remove('hidden');
+                initPrepWorkstation();
+                startPrepTimer();
+            }
+            if (stageNum === 3) {
+                document.getElementById('stage-latteart').classList.remove('hidden');
+                initLatteCanvas();
+            }
+            if (stageNum === 4) document.getElementById('stage-customer').classList.remove('hidden');
+            if (stageNum === 5) {
+                document.getElementById('stage-result').classList.remove('hidden');
+                calculateFinalScores();
+            }
+
+            playSoundEffect('click');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startExperience() {
+            state.currentOrderIndex = 0;
+            state.completedOrdersCount = 0;
+            switchStage(1);
+        }
+
+        function loadCurrentOrderTicket() {
+            // Select active order from pool sequentially
+            state.activeOrder = ordersPool[state.currentOrderIndex % ordersPool.length];
+            state.selectedIngredients = [];
+
+            // Update dots
+            const dotsContainer = document.getElementById('order-dots-container');
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < state.totalOrdersInShift; i++) {
+                const dot = document.createElement('span');
+                dot.className = `w-3 h-3 rounded-full ${i === state.currentOrderIndex ? 'bg-terracotta ring-2 ring-terracotta/40' : (i < state.currentOrderIndex ? 'bg-matcha' : 'bg-gray-300')}`;
+                dotsContainer.appendChild(dot);
+            }
+
+            document.getElementById('order-sequence-indicator').innerText = `الطلب ${state.currentOrderIndex + 1} من ${state.totalOrdersInShift}`;
+            document.getElementById('ticket-number').innerText = `بطاقة طلب الزبون #${101 + state.currentOrderIndex}`;
+            document.getElementById('ticket-badge').innerText = state.activeOrder.badge;
+            document.getElementById('ticket-badge').className = `font-bold text-xs px-2.5 py-1 rounded-full ${state.activeOrder.badgeColor}`;
+            document.getElementById('ticket-title').innerText = state.activeOrder.title;
+            document.getElementById('ticket-note').innerText = state.activeOrder.note;
+
+            // Render requirement list
+            const reqList = document.getElementById('ticket-requirements-list');
+            reqList.innerHTML = '';
+            state.activeOrder.requirements.forEach(req => {
+                const item = document.createElement('div');
+                item.className = "flex justify-between items-center bg-creamOat-card p-2 rounded-lg";
+                item.innerHTML = `<span class="font-bold text-gray-700">${req.label}</span><span class="font-black text-amberWood">${req.val}</span>`;
+                reqList.appendChild(item);
+            });
+
+            renderIngredientsGrid('all');
+        }
+
+        let currentActiveTab = 'all';
+        function filterIngredientCategory(cat) {
+            currentActiveTab = cat;
+            document.querySelectorAll('.ingredient-tab').forEach(t => {
+                t.className = "ingredient-tab px-3 py-1 rounded-xl text-xs font-bold transition " + 
+                (t.getAttribute('onclick').includes(cat) ? "bg-amberWood text-white shadow-xs" : "bg-creamOat text-amberWood hover:bg-creamOat-dark");
+            });
+            renderIngredientsGrid(cat);
+        }
+
+        function renderIngredientsGrid(categoryFilter = 'all') {
+            const container = document.getElementById('ingredients-grid');
+            container.innerHTML = '';
+
+            const itemsToDisplay = masterIngredients.filter(item => {
+                if (categoryFilter === 'all') return true;
+                return item.category === categoryFilter;
+            });
+
+            itemsToDisplay.forEach(item => {
+                const isSelected = state.selectedIngredients.includes(item.id);
+                const btn = document.createElement('button');
+                btn.className = `p-3 rounded-2xl border-2 transition text-right flex flex-col justify-between h-20 ${item.color} ${isSelected ? 'border-matcha shadow-glow-matcha ring-2 ring-matcha' : 'border-creamOat-border hover:border-terracotta'}`;
+                btn.onclick = () => toggleIngredient(item.id);
+                
+                btn.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <i class="${item.icon} text-base"></i>
+                        <i class="${isSelected ? 'fa-solid fa-circle-check text-matcha' : 'fa-regular fa-circle text-gray-400'}"></i>
+                    </div>
+                    <span class="font-extrabold text-[11px] block mt-1 leading-tight">${item.name}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            // Update Preview Assembly
+            const list = document.getElementById('assembled-ingredients-list');
+            if (state.selectedIngredients.length === 0) {
+                list.innerHTML = `<span class="text-xs text-gray-400 font-medium italic">انقر على المكونات لإضافتها...</span>`;
+            } else {
+                list.innerHTML = '';
+                state.selectedIngredients.forEach(id => {
+                    const item = masterIngredients.find(i => i.id === id);
+                    if (item) {
+                        const tag = document.createElement('span');
+                        tag.className = "px-2 py-0.5 rounded-lg bg-terracotta/10 text-terracotta font-extrabold text-xs flex items-center gap-1";
+                        tag.innerHTML = `<i class="${item.icon}"></i> ${item.name}`;
+                        list.appendChild(tag);
+                    }
+                });
+            }
+        }
+
+        function toggleIngredient(id) {
+            playSoundEffect('click');
+            if (state.selectedIngredients.includes(id)) {
+                state.selectedIngredients = state.selectedIngredients.filter(i => i !== id);
+            } else {
+                state.selectedIngredients.push(id);
+            }
+            renderIngredientsGrid(currentActiveTab);
+        }
+
+        function resetOrderSelection() {
+            playSoundEffect('click');
+            state.selectedIngredients = [];
+            renderIngredientsGrid(currentActiveTab);
+        }
+
+        function validateOrderSelection() {
+            const reqs = state.activeOrder.requiredIngredients;
+            const correct = reqs.every(id => state.selectedIngredients.includes(id)) 
+                            && state.selectedIngredients.length === reqs.length;
+
+            if (correct) {
+                playSoundEffect('success');
+            } else {
+                state.scores.accuracy = Math.max(70, state.scores.accuracy - 10);
+                playSoundEffect('click');
+            }
+
+            switchStage(2);
+        }
+
+        function initPrepWorkstation() {
+            state.prepStep = 0;
+            const isMojito = state.activeOrder.prepType === 'mojito';
+
+            document.getElementById('prep-mode-badge').innerText = isMojito ? "إعداد الموهيتو المنعش" : "إعداد القهوة المختصة";
+            document.getElementById('prep-station-title').innerText = isMojito ? "تحدي خفق وإعداد الموهيتو 🍹" : "تحدي تحضير القهوة والسرعة ☕";
+            document.getElementById('prep-station-subtitle').innerText = isMojito ? "اهرس النعناع، أضف السيروب والثلج وسكب السودا بالترتيب!" : "نفذ خطوات الاستخلاص وسكب الحليب والثلج بالترتيب الصحيح!";
+
+            const steps = state.activeOrder.prepStepsText;
+
+            // Render controls left (Step 1 & 2)
+            const leftControls = document.getElementById('prep-controls-left');
+            leftControls.innerHTML = `
+                <span class="text-xs font-bold text-amber-200 border-b border-white/10 pb-1">الخطوة 1</span>
+                <button id="step-btn-1" onclick="executePrepStep(1)" class="w-full py-2.5 px-3 rounded-xl bg-amberWood-light hover:bg-amberWood text-white font-bold text-xs shadow transition flex items-center justify-between">
+                    <span>${steps[0]}</span>
+                    <i id="step-icon-1" class="fa-regular fa-circle text-white/60"></i>
+                </button>
+
+                <span class="text-xs font-bold text-amber-200 border-b border-white/10 pb-1 mt-1">الخطوة 2</span>
+                <button id="step-btn-2" onclick="executePrepStep(2)" disabled class="w-full py-2.5 px-3 rounded-xl bg-amberWood-light hover:bg-amberWood text-white font-bold text-xs shadow transition opacity-50 cursor-not-allowed flex items-center justify-between">
+                    <span>${steps[1]}</span>
+                    <i id="step-icon-2" class="fa-regular fa-circle text-white/60"></i>
+                </button>
+            `;
+
+            // Render controls right (Step 3 & 4)
+            const rightControls = document.getElementById('prep-controls-right');
+            rightControls.innerHTML = `
+                <span class="text-xs font-bold text-amber-200 border-b border-white/10 pb-1">الخطوة 3</span>
+                <button id="step-btn-3" onclick="executePrepStep(3)" disabled class="w-full py-2.5 px-3 rounded-xl bg-amberWood-light hover:bg-amberWood text-white font-bold text-xs shadow transition opacity-50 cursor-not-allowed flex items-center justify-between">
+                    <span>${steps[2]}</span>
+                    <i id="step-icon-3" class="fa-regular fa-circle text-white/60"></i>
+                </button>
+
+                <span class="text-xs font-bold text-amber-200 border-b border-white/10 pb-1 mt-1">الخطوة 4</span>
+                <button id="step-btn-4" onclick="executePrepStep(4)" disabled class="w-full py-2.5 px-3 rounded-xl bg-amberWood-light hover:bg-amberWood text-white font-bold text-xs shadow transition opacity-50 cursor-not-allowed flex items-center justify-between">
+                    <span>${steps[3]}</span>
+                    <i id="step-icon-4" class="fa-regular fa-circle text-white/60"></i>
+                </button>
+            `;
+
+            // Reset liquid layers
+            for (let i = 1; i <= 4; i++) {
+                const layer = document.getElementById(`layer-${i}`);
+                layer.style.height = '0%';
+                layer.innerText = '';
+                layer.className = "w-full h-0 transition-all duration-500 flex items-center justify-center text-[10px] font-bold overflow-hidden";
+            }
+
+            document.getElementById('cup-steam').classList.add('hidden');
+            document.getElementById('cup-bubbles').classList.add('hidden');
+            document.getElementById('finish-prep-btn').disabled = true;
+            document.getElementById('finish-prep-btn').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('prep-step-counter').innerText = 'الخطوات المكتملة: 0 / 4';
+        }
+
+        function startPrepTimer() {
+            state.timeLeft = 60;
+            state.prepStartTime = Date.now();
+            document.getElementById('timer-display').innerText = state.timeLeft;
+
+            clearInterval(state.timerInterval);
+            state.timerInterval = setInterval(() => {
+                state.timeLeft--;
+                document.getElementById('timer-display').innerText = state.timeLeft;
+
+                if (state.timeLeft <= 10) {
+                    document.getElementById('timer-display').classList.add('text-red-500', 'animate-pulse');
+                }
+
+                if (state.timeLeft <= 0) {
+                    clearInterval(state.timerInterval);
+                    finishPreparationStage();
+                }
+            }, 1000);
+        }
+
+        function executePrepStep(stepNum) {
+            playSoundEffect('pour');
+            const isMojito = state.activeOrder.prepType === 'mojito';
+
+            if (stepNum === 1 && state.prepStep === 0) {
+                state.prepStep = 1;
+                document.getElementById('step-icon-1').className = "fa-solid fa-circle-check text-matcha-light";
+                document.getElementById('step-btn-2').disabled = false;
+                document.getElementById('step-btn-2').classList.remove('opacity-50', 'cursor-not-allowed');
+
+                const layer = document.getElementById('layer-1');
+                layer.style.height = '20%';
+                if (isMojito) {
+                    layer.classList.add('bg-emerald-700', 'text-emerald-100');
+                    layer.innerText = 'نعناع وليمون مهروس 🌿🍋';
+                } else {
+                    layer.classList.add('bg-amber-950', 'text-amber-100');
+                    layer.innerText = 'بن مطحون ومكبوس';
+                }
+            } else if (stepNum === 2 && state.prepStep === 1) {
+                state.prepStep = 2;
+                document.getElementById('step-icon-2').className = "fa-solid fa-circle-check text-matcha-light";
+                document.getElementById('step-btn-3').disabled = false;
+                document.getElementById('step-btn-3').classList.remove('opacity-50', 'cursor-not-allowed');
+
+                const layer = document.getElementById('layer-2');
+                layer.style.height = '25%';
+                if (isMojito) {
+                    layer.classList.add(state.activeOrder.id === 'berry_mint_mojito' ? 'bg-purple-800' : 'bg-orange-500', 'text-white');
+                    layer.innerText = 'سيروب النكهة الغني';
+                } else {
+                    layer.classList.add('bg-amber-900', 'text-amber-100');
+                    layer.innerText = 'إسبريسو مستخلص';
+                    document.getElementById('cup-steam').classList.remove('hidden');
+                }
+            } else if (stepNum === 3 && state.prepStep === 2) {
+                state.prepStep = 3;
+                document.getElementById('step-icon-3').className = "fa-solid fa-circle-check text-matcha-light";
+                document.getElementById('step-btn-4').disabled = false;
+                document.getElementById('step-btn-4').classList.remove('opacity-50', 'cursor-not-allowed');
+
+                const layer = document.getElementById('layer-3');
+                layer.style.height = '25%';
+                layer.classList.add('bg-blue-100/80', 'text-blue-900');
+                layer.innerText = 'مكعبات الثلج 🧊';
+            } else if (stepNum === 4 && state.prepStep === 3) {
+                state.prepStep = 4;
+                document.getElementById('step-icon-4').className = "fa-solid fa-circle-check text-matcha-light";
+
+                const layer = document.getElementById('layer-4');
+                layer.style.height = '30%';
+                if (isMojito) {
+                    layer.classList.add('bg-cyan-100/70', 'text-cyan-900');
+                    layer.innerText = 'سودا فوارة 🫧';
+                    document.getElementById('cup-bubbles').classList.remove('hidden');
+                } else {
+                    layer.classList.add('bg-yellow-50', 'text-amber-900');
+                    layer.innerText = 'الحليب المخفوق';
+                }
+
+                document.getElementById('finish-prep-btn').disabled = false;
+                document.getElementById('finish-prep-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+                playSoundEffect('success');
+            }
+
+            document.getElementById('prep-step-counter').innerText = `الخطوات المكتملة: ${state.prepStep} / 4`;
+        }
+
+        function finishPreparationStage() {
+            clearInterval(state.timerInterval);
+            
+            state.completedOrdersCount++;
+            
+            // Check if sequential orders remaining in the shift
+            if (state.completedOrdersCount < state.totalOrdersInShift) {
+                // Advance to next sequential order ticket!
+                state.currentOrderIndex++;
+                switchStage(1);
+            } else {
+                // Shift finished! Advance to Latte Art / Garnishing
+                switchStage(3);
+            }
+        }
+
+        let canvas, ctx, isDrawing = false, drawnPixels = 0;
+
+        function initLatteCanvas() {
+            canvas = document.getElementById('latte-canvas');
+            ctx = canvas.getContext('2d');
+            
+            const isMojito = state.activeOrder.prepType === 'mojito';
+            document.getElementById('art-stage-title').innerText = isMojito ? "تحدي تزيين الموهيتو (Garnishing) 🌿🍋" : "تحدي رسم فن اللاتيه (Latte Art) 🎨";
+            document.getElementById('art-stage-desc').innerText = isMojito ? "استخدم إصبعك لرسم وتزيين ورق النعناع وشرائح الليمون المنعشة!" : "قم برسم شكل القلب أو الورقة على رغوة القهوة الناعمة";
+
+            resetCanvasSurface();
+
+            canvas.onmousedown = startDrawing;
+            canvas.onmousemove = drawArt;
+            canvas.onmouseup = stopDrawing;
+
+            canvas.ontouchstart = (e) => {
+                e.preventDefault();
+                startDrawing(e.touches[0]);
+            };
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                drawArt(e.touches[0]);
+            };
+            canvas.ontouchend = stopDrawing;
+        }
+
+        function resetCanvasSurface() {
+            const isMojito = state.activeOrder.prepType === 'mojito';
+            
+            if (isMojito) {
+                const gradient = ctx.createRadialGradient(140, 140, 10, 140, 140, 140);
+                gradient.addColorStop(0, '#52B788');
+                gradient.addColorStop(0.7, '#2A9D8F');
+                gradient.addColorStop(1, '#1D3557');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 280, 280);
+
+                // Guide circle
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(140, 140, 60, 0, Math.PI * 2);
+                ctx.stroke();
+            } else {
+                const gradient = ctx.createRadialGradient(140, 140, 10, 140, 140, 140);
+                gradient.addColorStop(0, '#5C2C16');
+                gradient.addColorStop(0.8, '#3D1C0E');
+                gradient.addColorStop(1, '#2B1207');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 280, 280);
+
+                // Heart Guide
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
+                ctx.lineWidth = 3;
+                ctx.setLineDash([6, 6]);
+                ctx.beginPath();
+                ctx.arc(110, 110, 35, 0, Math.PI, true);
+                ctx.arc(170, 110, 35, 0, Math.PI, true);
+                ctx.lineTo(140, 200);
+                ctx.closePath();
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            drawnPixels = 0;
+            state.latteScore = 0;
+            document.getElementById('latte-score-percent').innerText = "0%";
+            document.getElementById('latte-feedback-text').innerText = "ابدأ بالتأشير والتزيين الآن!";
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            drawArt(e);
+        }
+
+        function drawArt(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.pageX) - rect.left;
+            const y = (e.clientY || e.pageY) - rect.top;
+
+            const isMojito = state.activeOrder.prepType === 'mojito';
+            ctx.fillStyle = isMojito ? '#E9F5DB' : '#FFFDF9';
+            ctx.beginPath();
+            ctx.arc(x, y, isMojito ? 14 : 11, 0, Math.PI * 2);
+            ctx.fill();
+
+            drawnPixels += 1;
+            calculateLatteScore();
+        }
+
+        function stopDrawing() { isDrawing = false; }
+        function clearLatteCanvas() { playSoundEffect('click'); resetCanvasSurface(); }
+
+        function calculateLatteScore() {
+            let percent = Math.min(Math.round((drawnPixels / 40) * 100), 99);
+            state.latteScore = percent;
+            document.getElementById('latte-score-percent').innerText = `${percent}%`;
+
+            if (percent > 80) {
+                document.getElementById('latte-feedback-text').innerText = "دقة عالية جداً! لمسة باريستا محترف ✨🎨";
+            } else if (percent > 40) {
+                document.getElementById('latte-feedback-text').innerText = "جميل جداً! واصل إضافة التزيين لمظهر متميز.";
+            }
+        }
+
+        function finishLatteArtStage() { switchStage(4); }
+
+        function selectCustomerResponse(choice) {
+            state.customerChoice = choice;
+            if (choice === 'best') {
+                state.scores.service = 100;
+                playSoundEffect('success');
+            } else if (choice === 'medium') {
+                state.scores.service = 75;
+                playSoundEffect('click');
+            } else {
+                state.scores.service = 55;
+                playSoundEffect('click');
+            }
+            switchStage(5);
+        }
+
+        function calculateFinalScores() {
+            state.scores.pressure = Math.round((state.scores.speed + state.scores.service) / 2);
+            const total = Math.round((state.scores.speed + state.scores.accuracy + state.scores.service + state.scores.pressure) / 4);
+            state.scores.total = total;
+
+            document.getElementById('final-total-score').innerText = `${total}%`;
+            document.getElementById('score-speed-bar').style.width = `${state.scores.speed}%`;
+            document.getElementById('score-accuracy-bar').style.width = `${state.scores.accuracy}%`;
+            document.getElementById('score-service-bar').style.width = `${state.scores.service}%`;
+            document.getElementById('score-pressure-bar').style.width = `${state.scores.pressure}%`;
+
+            playSoundEffect('success');
+        }
+
+        function updateCertName(val) {
+            state.userName = val || "زائر مؤسسة التدريب المهني";
+            document.getElementById('photobooth-user-name').innerText = state.userName;
+        }
+
+        function openPhotoBoothModal() {
+            playSoundEffect('click');
+            document.getElementById('photobooth-modal').classList.remove('hidden');
+            document.getElementById('photobooth-score').innerText = `${state.scores.total}%`;
+            document.getElementById('photobooth-user-name').innerText = state.userName;
+        }
+
+        function closePhotoBoothModal() {
+            playSoundEffect('click');
+            document.getElementById('photobooth-modal').classList.add('hidden');
+        }
+
+        function downloadBadgeCard() {
+            playSoundEffect('success');
+            alert(`تم حفظ بطاقة التذكار للبارستا (${state.userName}) بنجاح! 📸☕🍹`);
+        }
+
+        function restartFullExperience() {
+            state.currentOrderIndex = 0;
+            state.completedOrdersCount = 0;
+            switchStage(0);
+        }
+
+        // Initialize application on page load
+        window.onload = function() {
+            switchStage(0);
+        };
+    </script>
+</body>
+</html>

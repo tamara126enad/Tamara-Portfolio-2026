@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>COMPUTER FROM 1999 - حاسوب من عام 1999</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Tajawal:wght@400;700&family=Pixelify+Sans&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --win-bg: #008080;
+            --win-gray: #c0c0c0;
+            --win-light: #ffffff;
+            --win-dark: #808080;
+            --win-black: #000000;
+            --win-blue: #000080;
+            --win-title: #000080;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #050505;
+            font-family: 'Tahoma', 'Tajawal', sans-serif;
+            font-size: 16px;
+            cursor: default;
+        }
+
+        /* CRT Monitor Styling Wrapper */
+        .crt-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #008080;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CRT Screen Curved Overlay Effects */
+        .crt-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 6px 100%;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.6);
+            opacity: 0.85;
+        }
+
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+
+        /* Scanline Anim */
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 9998;
+            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0.15;
+            position: absolute;
+            bottom: 100%;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+
+        /* Windows 98 Bevel UI Utilities */
+        .win-box {
+            background: var(--win-gray);
+            border-top: 2px solid var(--win-light);
+            border-left: 2px solid var(--win-light);
+            border-right: 2px solid var(--win-black);
+            border-bottom: 2px solid var(--win-black);
+            box-shadow: inset 1px 1px var(--win-gray), inset -1px -1px var(--win-dark);
+        }
+
+        .win-box-inset {
+            background: var(--win-light);
+            border-top: 2px solid var(--win-dark);
+            border-left: 2px solid var(--win-dark);
+            border-right: 2px solid var(--win-light);
+            border-bottom: 2px solid var(--win-light);
+            box-shadow: inset 1px 1px var(--win-black), inset -1px -1px var(--win-gray);
+        }
+
+        .win-btn {
+            background: var(--win-gray);
+            border-top: 2px solid var(--win-light);
+            border-left: 2px solid var(--win-light);
+            border-right: 2px solid var(--win-black);
+            border-bottom: 2px solid var(--win-black);
+            padding: 2px 6px;
+            font-size: 11px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        .win-btn:active {
+            border-top: 2px solid var(--win-black);
+            border-left: 2px solid var(--win-black);
+            border-right: 2px solid var(--win-light);
+            border-bottom: 2px solid var(--win-light);
+            padding: 3px 5px 1px 7px;
+        }
+
+        .win-titlebar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: white;
+            font-weight: bold;
+            padding: 3px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .win-titlebar.inactive {
+            background: linear-gradient(90deg, #808080, #b5b5b5);
+            color: #c0c0c0;
+        }
+
+        /* Boot Screen Styling */
+        #boot-screen {
+            position: absolute;
+            inset: 0;
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'VT323', monospace;
+            z-index: 10000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Desktop Icons Grid */
+        .desktop-icon {
+            width: 76px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 8px;
+            padding: 4px;
+            cursor: pointer;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            border: 1px transparent dashed;
+            border-radius: 2px;
+        }
+
+        .desktop-icon:hover, .desktop-icon.selected {
+            background-color: rgba(0, 0, 128, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .desktop-icon img, .desktop-icon .icon-svg {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 4px;
+        }
+
+        /* Custom Portfolio Folder Icon Styling */
+        .portfolio-folder-icon {
+            position: relative;
+            filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5));
+        }
+
+        .portfolio-folder-icon::after {
+            content: '1999';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #ff0055;
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-family: sans-serif;
+        }
+
+        /* Window Container Styling */
+        .window {
+            position: absolute;
+            min-width: 200px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        /* Start Menu */
+        #start-menu {
+            position: absolute;
+            bottom: 30px;
+            left: 2px;
+            width: 180px;
+            background: var(--win-gray);
+            z-index: 9000;
+            display: none;
+        }
+
+        /* Windows Explorer Grid */
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            height: 100%;
+            align-content: start;
+        }
+
+        .file-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .file-item:hover {
+            background-color: #000080;
+            color: white;
+        }
+
+        /* Custom Paint Cursor & Canvas */
+        .paint-canvas-wrapper {
+            background: #808080;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            flex-grow: 1;
+        }
+
+        canvas {
+            background-color: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            image-rendering: pixelated;
+        }
+
+        /* CRT Shutdown Collapse Animation */
+        @keyframes crt-off {
+            0% { transform: scale(1, 1); filter: brightness(1); }
+            50% { transform: scale(1, 0.005); filter: brightness(5); }
+            100% { transform: scale(0, 0); filter: brightness(10); }
+        }
+
+        .shutdown-anim {
+            animation: crt-off 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        /* Subtle icon refresh flash */
+        .refresh-flash {
+            opacity: 0.1;
+            transition: opacity 0.05s ease;
+        }
+    </style>
+</head>
+<body class="bg-black select-none overflow-hidden">
+
+<div id="crt-frame" class="crt-container crt-flicker">
+    <div class="crt-overlay"></div>
+    <div class="scanline"></div>
+
+    <!-- BOOT SCREEN OVERLAY -->
+    <div id="boot-screen">
+        <div class="space-y-2">
+            <div class="text-xl text-yellow-400 font-bold">TAMARA-PC BIOS v4.51PG (c) 1999 Personal Computer Inc.</div>
+            <div id="boot-ram">Memory Test : 32768K OK</div>
+            <br>
+            <div id="boot-log" class="text-green-400 space-y-1">
+                <div>Detecting IDE Primary Master ... 2.1 GB HDD</div>
+                <div>Detecting IDE Secondary Master ... 24X CD-ROM Drive</div>
+                <div>Floppy disk drive A: 1.44M, 3.5 in.</div>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <div id="boot-status" class="text-white text-lg font-mono">Starting Windows 98...</div>
+            <div class="border border-green-500 p-2 text-center text-green-300 animate-pulse" id="boot-prompt">
+                [ PRESS ANYWHERE OR CLICK TO POWER ON CRT MONITOR ]
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WINDOWS DESKTOP AREA -->
+    <div id="desktop" class="flex-1 relative overflow-hidden bg-[#008080] p-2" oncontextmenu="handleDesktopContextMenu(event)">
+        
+        <!-- Desktop Icons Column 1 -->
+        <div class="flex flex-col flex-wrap h-full content-start items-start space-y-1">
+            
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('my-computer')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="16" fill="#c0c0c0" stroke="#000" stroke-width="2"/><rect x="7" y="9" width="18" height="10" fill="#008080"/><rect x="8" y="24" width="16" height="4" fill="#808080" stroke="#000"/><path d="M2 28 h28 v2 h-28 z" fill="#000"/></svg>
+                <span class="text-center text-xs">My Computer</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('my-documents')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><path d="M2 8 h10 l4 4 h14 v16 h-28 z" fill="#e0c040" stroke="#000" stroke-width="1.5"/><path d="M4 12 h24 v12 h-24 z" fill="#fff2a8"/></svg>
+                <span class="text-center text-xs">My Documents</span>
+            </div>
+
+            <!-- SPECIAL PORTFOLIO FOLDER: "حقيبة أعمال تمارا" -->
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('tamara-portfolio')">
+                <div class="portfolio-folder-icon">
+                    <svg class="icon-svg" viewBox="0 0 32 32"><path d="M2 6 h10 l4 4 h14 v18 h-28 z" fill="#ff9900" stroke="#000" stroke-width="1.5"/><path d="M4 12 h24 v14 h-24 z" fill="#ffd175"/><rect x="8" y="15" width="16" height="8" fill="#ffffff" stroke="#808080"/><line x1="10" y1="18" x2="20" y2="18" stroke="#000080" stroke-width="2"/></svg>
+                </div>
+                <span class="text-center text-xs font-bold text-yellow-200">حقيبة أعمال تمارا</span>
+                <span class="text-[9px] text-gray-200 opacity-90">Tamara's Portfolio</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('photos-folder')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="22" fill="#fff" stroke="#000" stroke-width="1.5"/><circle cx="11" cy="12" r="3" fill="#ffcc00"/><path d="M5 24 l6-8 l6 6 l4-4 l6 6 v2 h-22 z" fill="#228b22"/></svg>
+                <span class="text-center text-xs">Photos</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('letters-folder')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" fill="#fff8dc" stroke="#000" stroke-width="1.5"/><path d="M4 6 l12 10 l12 -10" fill="none" stroke="#000" stroke-width="1.5"/><line x1="8" y1="20" x2="24" y2="20" stroke="#808080" stroke-width="2"/></svg>
+                <span class="text-center text-xs">Letters</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('paint-app')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><path d="M4 24 c0 0 4-10 12-10 s12 10 12 10 v4 h-24 z" fill="#c0c0c0" stroke="#000"/><circle cx="10" cy="20" r="2" fill="#ff0000"/><circle cx="16" cy="18" r="2" fill="#00ff00"/><circle cx="22" cy="20" r="2" fill="#0000ff"/><path d="M22 4 l6 6 l-12 12 h-6 v-6 z" fill="#e0a000" stroke="#000"/></svg>
+                <span class="text-center text-xs">Paint</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('internet-browser')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="#1e90ff" stroke="#000" stroke-width="1.5"/><ellipse cx="16" cy="16" rx="13" ry="5" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="16" y1="3" x2="16" y2="29" stroke="#fff" stroke-width="1.5"/></svg>
+                <span class="text-center text-xs">Internet</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('games-folder')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="16" rx="4" fill="#808080" stroke="#000" stroke-width="1.5"/><circle cx="10" cy="16" r="3" fill="#ff0000"/><rect x="18" y="14" width="8" height="4" fill="#333"/></svg>
+                <span class="text-center text-xs">Games</span>
+            </div>
+
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openWindow('recycle-bin')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><path d="M8 8 h16 v18 h-16 z" fill="#c0c0c0" stroke="#000" stroke-width="1.5"/><path d="M6 6 h20 v3 h-20 z" fill="#808080" stroke="#000"/><line x1="12" y1="12" x2="12" y2="22" stroke="#000"/><line x1="16" y1="12" x2="16" y2="22" stroke="#000"/><line x1="20" y1="12" x2="20" y2="22" stroke="#000"/></svg>
+                <span class="text-center text-xs">Recycle Bin</span>
+            </div>
+
+            <!-- SPECIAL THANK YOU TEXT FILE DISCOVERABLE ON DESKTOP -->
+            <div class="desktop-icon" onclick="selectIcon(this)" ondblclick="openNotePad('رسالة_شكر.txt', 'لمن أعطاني المعرفة لصنع وإنتاج هذا العمل، جزاك الله خيرًا وزادك الله علمًا.\n\n1999')">
+                <svg class="icon-svg" viewBox="0 0 32 32"><rect x="6" y="4" width="20" height="24" fill="#fff" stroke="#000" stroke-width="1.5"/><line x1="10" y1="9" x2="22" y2="9" stroke="#000080" stroke-width="1.5"/><line x1="10" y1="13" x2="22" y2="13" stroke="#808080"/><line x1="10" y1="17" x2="18" y2="17" stroke="#808080"/></svg>
+                <span class="text-center text-xs text-green-200">رسالة_شكر.txt</span>
+            </div>
+
+        </div>
+
+        <!-- WINDOWS STORAGE CONTAINER FOR DYNAMICALLY DRAGGABLE WINDOWS -->
+        <div id="windows-container" class="absolute inset-0 pointer-events-none">
+            <!-- Windows appended via JS -->
+        </div>
+
+        <!-- DESKTOP RIGHT CLICK CUSTOM CONTEXT MENU (STRICTLY REFRESH ONLY) -->
+        <div id="desktop-context-menu" class="hidden absolute win-box w-32 py-1 z-[9999]" onclick="event.stopPropagation()">
+            <div class="px-4 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="performDesktopRefresh()">
+                <span>🔄</span>
+                <span>Refresh</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM TASKBAR -->
+    <div class="h-8 win-box flex items-center justify-between px-1 z-[9000] relative bg-[#c0c0c0]">
+        <div class="flex items-center space-x-1">
+            <button id="start-button" class="win-btn font-bold px-2 py-1 flex items-center space-x-1 h-6" onclick="toggleStartMenu(event)">
+                <svg class="w-4 h-4" viewBox="0 0 16 16"><path d="M0 0h7v7H0z" fill="#f25022"/><path d="M9 0h7v7H9z" fill="#7fba00"/><path d="M0 9h7v7H0z" fill="#00a4ef"/><path d="M9 9h7v7H9z" fill="#ffb900"/></svg>
+                <span>Start</span>
+            </button>
+            <div id="taskbar-items" class="flex items-center space-x-1 overflow-x-auto">
+                <!-- Open windows taskbar buttons -->
+            </div>
+        </div>
+
+        <!-- System Tray -->
+        <div class="win-box-inset px-2 py-0.5 flex items-center space-x-2 text-xs h-6 bg-[#c0c0c0]">
+            <span id="volume-icon" title="Volume">🔊</span>
+            <span id="system-clock">11:42 PM</span>
+        </div>
+    </div>
+
+    <!-- START MENU -->
+    <div id="start-menu" class="win-box flex">
+        <div class="bg-[#000080] w-7 flex items-end justify-center py-2 text-white font-bold text-xs tracking-widest" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+            Windows98
+        </div>
+        <div class="flex-1 py-1 text-xs">
+            <div class="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="openWindow('tamara-portfolio'); toggleStartMenu();">
+                <span>📁</span>
+                <span class="font-bold">حقيبة أعمال تمارا</span>
+            </div>
+            <div class="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="openWindow('my-documents'); toggleStartMenu();">
+                <span>📂</span>
+                <span>Documents</span>
+            </div>
+            <div class="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="openWindow('paint-app'); toggleStartMenu();">
+                <span>🎨</span>
+                <span>Paint</span>
+            </div>
+            <div class="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="openWindow('internet-browser'); toggleStartMenu();">
+                <span>🌐</span>
+                <span>Internet Explorer</span>
+            </div>
+            <div class="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="openWindow('games-folder'); toggleStartMenu();">
+                <span>🎮</span>
+                <span>Games</span>
+            </div>
+            <div class="border-t border-gray-400 my-1"></div>
+            <div class="px-3 py-1 hover:bg-[#000080] hover:text-white cursor-pointer flex items-center space-x-2" onclick="triggerShutdownSequence()">
+                <span>💻</span>
+                <span>Shut Down...</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+/* WEB AUDIO SYNTHESIZER FOR 1999 SYSTEM SOUNDS (BOOT, DIALUP, CLICKS, SOUND EFFECTS) */
+class SoundEngine {
+    constructor() {
+        this.ctx = null;
+    }
+
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+
+    playClick() {
+        this.init();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, this.ctx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.03);
+    }
+
+    playBootChime() {
+        this.init();
+        if (!this.ctx) return;
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
+        notes.forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.15);
+            gain.gain.setValueAtTime(0, this.ctx.currentTime + idx * 0.15);
+            gain.gain.linearRampToValueAtTime(0.2, this.ctx.currentTime + idx * 0.15 + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.15 + 1.2);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(this.ctx.currentTime + idx * 0.15);
+            osc.stop(this.ctx.currentTime + idx * 0.15 + 1.3);
+        });
+    }
+
+    playDialupSound(onComplete) {
+        this.init();
+        if (!this.ctx) return onComplete && onComplete();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        
+        // Dial tone & white noise simulation
+        osc.frequency.setValueAtTime(350, now);
+        osc.frequency.setValueAtTime(440, now + 0.5);
+        osc.frequency.setValueAtTime(1200, now + 1.2);
+        osc.frequency.setValueAtTime(2400, now + 1.8);
+
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 3.0);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 3.0);
+
+        setTimeout(() => {
+            if (onComplete) onComplete();
+        }, 3000);
+    }
+
+    playChildLaughter() {
+        this.init();
+        if (!this.ctx) return;
+        // Synthesized joyful giggling tone sweep
+        const now = this.ctx.currentTime;
+        for (let i = 0; i < 6; i++) {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            const startTime = now + i * 0.18;
+            osc.frequency.setValueAtTime(500 + (i % 2) * 250, startTime);
+            osc.frequency.exponentialRampToValueAtTime(800 + (i % 2) * 300, startTime + 0.12);
+            gain.gain.setValueAtTime(0.2, startTime);
+            gain.gain.linearRampToValueAtTime(0.01, startTime + 0.15);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + 0.16);
+        }
+    }
+}
+
+const sounds = new SoundEngine();
+
+/* GLOBAL STATE & WINDOW MANAGER */
+let activeZIndex = 100;
+const openWindows = {};
+
+function updateClock() {
+    const clockEl = document.getElementById('system-clock');
+    const now = new Date();
+    // Force year display context in 1999 on system logic
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    clockEl.textContent = `${hours}:${minutes} ${ampm}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// BOOT SEQUENCE HANDLER
+window.addEventListener('load', () => {
+    const bootScreen = document.getElementById('boot-screen');
+    const bootPrompt = document.getElementById('boot-prompt');
+    const bootStatus = document.getElementById('boot-status');
+
+    const startBoot = () => {
+        sounds.playBootChime();
+        bootPrompt.textContent = "Loading personal settings...";
+        setTimeout(() => {
+            bootStatus.textContent = "Welcome, Tamara.";
+            bootPrompt.textContent = "Preparing Desktop...";
+            setTimeout(() => {
+                bootScreen.style.transition = 'opacity 0.8s ease';
+                bootScreen.style.opacity = '0';
+                setTimeout(() => {
+                    bootScreen.style.display = 'none';
+                }, 800);
+            }, 1200);
+        }, 1500);
+        document.removeEventListener('click', startBoot);
+    };
+
+    document.addEventListener('click', startBoot);
+});
+
+// DESKTOP ICON SELECTION & RIGHT CLICK REFRESH
+function selectIcon(el) {
+    sounds.playClick();
+    document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+}
+
+function handleDesktopContextMenu(e) {
+    e.preventDefault();
+    // Close context menu if clicked elsewhere
+    const menu = document.getElementById('desktop-context-menu');
+    menu.style.left = `${e.clientX}px`;
+    menu.style.top = `${e.clientY}px`;
+    menu.classList.remove('hidden');
+}
+
+document.addEventListener('click', () => {
+    const menu = document.getElementById('desktop-context-menu');
+    if (menu) menu.classList.add('hidden');
+});
+
+function performDesktopRefresh() {
+    sounds.playClick();
+    const desktop = document.getElementById('desktop');
+    desktop.classList.add('refresh-flash');
+    setTimeout(() => {
+        desktop.classList.remove('refresh-flash');
+    }, 150);
+}
+
+function toggleStartMenu(e) {
+    if (e) e.stopPropagation();
+    sounds.playClick();
+    const menu = document.getElementById('start-menu');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+}
+
+/* WINDOW CREATION ENGINE */
+function createWindow({ id, title, icon, width = 500, height = 380, contentHTML }) {
+    if (openWindows[id]) {
+        bringToFront(id);
+        return openWindows[id];
+    }
+
+    activeZIndex++;
+    const win = document.createElement('div');
+    win.id = `win-${id}`;
+    win.className = 'window win-box pointer-events-auto';
+    win.style.width = `${Math.min(width, window.innerWidth - 20)}px`;
+    win.style.height = `${Math.min(height, window.innerHeight - 60)}px`;
+    
+    // Stagger window positions slightly
+    const count = Object.keys(openWindows).length;
+    const topPos = 40 + (count * 20) % 150;
+    const leftPos = 40 + (count * 25) % 200;
+    win.style.top = `${topPos}px`;
+    win.style.left = `${leftPos}px`;
+    win.style.zIndex = activeZIndex;
+
+    win.innerHTML = `
+        <div class="win-titlebar" onmousedown="startDragWindow(event, '${id}')">
+            <div class="flex items-center space-x-1 overflow-hidden">
+                <span class="text-xs">${icon || '📁'}</span>
+                <span class="truncate text-xs font-bold">${title}</span>
+            </div>
+            <div class="flex items-center space-x-1">
+                <button class="win-btn text-xs font-bold w-4 h-4 p-0 leading-none" onclick="minimizeWindow('${id}')">_</button>
+                <button class="win-btn text-xs font-bold w-4 h-4 p-0 leading-none" onclick="maximizeWindow('${id}')">□</button>
+                <button class="win-btn text-xs font-bold w-4 h-4 p-0 leading-none bg-red-200" onclick="closeWindow('${id}')">✕</button>
+            </div>
+        </div>
+        <div class="flex-1 overflow-auto bg-[#c0c0c0] flex flex-col relative" onclick="bringToFront('${id}')">
+            ${contentHTML}
+        </div>
+    `;
+
+    document.getElementById('windows-container').appendChild(win);
+    openWindows[id] = win;
+
+    // Add Taskbar button
+    addTaskbarButton(id, title, icon);
+    bringToFront(id);
+    return win;
+}
+
+function bringToFront(id) {
+    const win = openWindows[id];
+    if (win) {
+        activeZIndex++;
+        win.style.zIndex = activeZIndex;
+        win.style.display = 'flex';
+        
+        // Highlight active titlebar
+        document.querySelectorAll('.win-titlebar').forEach(tb => tb.classList.add('inactive'));
+        const tb = win.querySelector('.win-titlebar');
+        if (tb) tb.classList.remove('inactive');
+    }
+}
+
+function closeWindow(id) {
+    sounds.playClick();
+    const win = openWindows[id];
+    if (win) {
+        win.remove();
+        delete openWindows[id];
+        removeTaskbarButton(id);
+    }
+}
+
+function minimizeWindow(id) {
+    sounds.playClick();
+    const win = openWindows[id];
+    if (win) {
+        win.style.display = 'none';
+    }
+}
+
+function maximizeWindow(id) {
+    sounds.playClick();
+    const win = openWindows[id];
+    if (win) {
+        if (win.dataset.maximized === 'true') {
+            win.style.top = win.dataset.oldTop;
+            win.style.left = win.dataset.oldLeft;
+            win.style.width = win.dataset.oldWidth;
+            win.style.height = win.dataset.oldHeight;
+            win.dataset.maximized = 'false';
+        } else {
+            win.dataset.oldTop = win.style.top;
+            win.dataset.oldLeft = win.style.left;
+            win.dataset.oldWidth = win.style.width;
+            win.dataset.oldHeight = win.style.height;
+            win.style.top = '0px';
+            win.style.left = '0px';
+            win.style.width = '100%';
+            win.style.height = 'calc(100% - 32px)';
+            win.dataset.maximized = 'true';
+        }
+    }
+}
+
+function addTaskbarButton(id, title, icon) {
+    const tbItems = document.getElementById('taskbar-items');
+    const btn = document.createElement('button');
+    btn.id = `tb-btn-${id}`;
+    btn.className = 'win-btn text-xs px-2 py-0.5 truncate max-w-[120px] flex items-center space-x-1 h-6';
+    btn.innerHTML = `<span>${icon || '📁'}</span><span>${title}</span>`;
+    btn.onclick = () => {
+        const win = openWindows[id];
+        if (win.style.display === 'none') {
+            bringToFront(id);
+        } else {
+            minimizeWindow(id);
+        }
+    };
+    tbItems.appendChild(btn);
+}
+
+function removeTaskbarButton(id) {
+    const btn = document.getElementById(`tb-btn-${id}`);
+    if (btn) btn.remove();
+}
+
+/* WINDOW DRAGGING LOGIC */
+let draggingWin = null;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+function startDragWindow(e, id) {
+    if (e.target.tagName === 'BUTTON') return;
+    bringToFront(id);
+    draggingWin = openWindows[id];
+    if (!draggingWin) return;
+    const rect = draggingWin.getBoundingClientRect();
+    dragOffsetX = e.clientX - rect.left;
+    dragOffsetY = e.clientY - rect.top;
+
+    document.addEventListener('mousemove', onDragWindow);
+    document.addEventListener('mouseup', stopDragWindow);
+}
+
+function onDragWindow(e) {
+    if (!draggingWin) return;
+    draggingWin.style.left = `${Math.max(0, e.clientX - dragOffsetX)}px`;
+    draggingWin.style.top = `${Math.max(0, e.clientY - dragOffsetY)}px`;
+}
+
+function stopDragWindow() {
+    draggingWin = null;
+    document.removeEventListener('mousemove', onDragWindow);
+    document.removeEventListener('mouseup', stopDragWindow);
+}
+
+
+/* SPECIFIC APPLICATIONS OPENERS */
+
+function openWindow(type) {
+    sounds.playClick();
+    switch (type) {
+        case 'my-computer':
+            openMyComputer();
+            break;
+        case 'my-documents':
+            openMyDocuments();
+            break;
+        case 'tamara-portfolio':
+            openTamaraPortfolio();
+            break;
+        case 'photos-folder':
+            openPhotosFolder();
+            break;
+        case 'letters-folder':
+            openLettersFolder();
+            break;
+        case 'games-folder':
+            openGamesFolder();
+            break;
+        case 'paint-app':
+            openPaintApp();
+            break;
+        case 'internet-browser':
+            openInternetBrowser();
+            break;
+        case 'recycle-bin':
+            openRecycleBin();
+            break;
+    }
+}
+
+// 1. MY COMPUTER
+function openMyComputer() {
+    createWindow({
+        id: 'my-computer',
+        title: 'My Computer',
+        icon: '💻',
+        width: 480,
+        height: 320,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openDriveA()">
+                        <span class="text-2xl">💾</span>
+                        <span>3½ Floppy (A:)</span>
+                    </div>
+                    <div class="file-item" ondblclick="openDriveC()">
+                        <span class="text-2xl">💽</span>
+                        <span>Local Disk (C:)</span>
+                    </div>
+                    <div class="file-item" ondblclick="openCDDrive()">
+                        <span class="text-2xl">💿</span>
+                        <span>CD Drive (D:)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="px-2 py-1 text-xs border-t border-gray-400 bg-gray-200">3 object(s)</div>
+        `
+    });
+}
+
+function openDriveA() {
+    openModal("3½ Floppy (A:)", "Please insert a disk into drive A:.");
+}
+
+function openCDDrive() {
+    openModal("CD Drive (D:)", "Drive D: is empty.");
+}
+
+function openDriveC() {
+    createWindow({
+        id: 'drive-c',
+        title: 'Local Disk (C:)',
+        icon: '💽',
+        width: 500,
+        height: 350,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openMyDocuments()">
+                        <span class="text-2xl">📂</span>
+                        <span>My Documents</span>
+                    </div>
+                    <div class="file-item" ondblclick="openModal('Program Files', 'Access restricted by administrator.')">
+                        <span class="text-2xl">📁</span>
+                        <span>Program Files</span>
+                    </div>
+                    <div class="file-item" ondblclick="openModal('Windows', 'System files hidden.')">
+                        <span class="text-2xl">📁</span>
+                        <span>Windows</span>
+                    </div>
+                    <div class="file-item" ondblclick="openTamaraUserFolder()">
+                        <span class="text-2xl">📁</span>
+                        <span class="font-bold text-blue-800">Tamara</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+function openTamaraUserFolder() {
+    createWindow({
+        id: 'tamara-user-folder',
+        title: 'C:\\Tamara',
+        icon: '📁',
+        width: 520,
+        height: 360,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openTamaraPortfolio()">
+                        <span class="text-2xl">💼</span>
+                        <span class="font-bold">Portfolio</span>
+                    </div>
+                    <div class="file-item" ondblclick="openPhotosFolder()">
+                        <span class="text-2xl">📸</span>
+                        <span>Memories</span>
+                    </div>
+                    <div class="file-item" ondblclick="openLettersFolder()">
+                        <span class="text-2xl">✉️</span>
+                        <span>Letters</span>
+                    </div>
+                    <div class="file-item" ondblclick="openTamaraPersonalOldFolder()">
+                        <span class="text-2xl">🔒</span>
+                        <span>Personal</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+// HIDDEN FILE LOCATION: C:\Tamara\Personal\Old\ DO_NOT_OPEN.txt
+function openTamaraPersonalOldFolder() {
+    createWindow({
+        id: 'tamara-personal-old',
+        title: 'C:\\Tamara\\Personal\\Old\\',
+        icon: '🔒',
+        width: 480,
+        height: 300,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item text-red-700" ondblclick="triggerHiddenFileCutscene()">
+                        <span class="text-2xl">📄</span>
+                        <span class="font-bold underline">DO_NOT_OPEN.txt</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+// 2. MY DOCUMENTS
+function openMyDocuments() {
+    createWindow({
+        id: 'my-documents',
+        title: 'My Documents',
+        icon: '📂',
+        width: 480,
+        height: 320,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openNotePad('notes.txt', 'Don\'t forget to study for computer science test!\n- Finish web design layout.\n- Backup files to floppy disk.')">
+                        <span class="text-2xl">📄</span>
+                        <span>notes.txt</span>
+                    </div>
+                    <div class="file-item" ondblclick="openNotePad('dreams.txt', 'Sometimes I wonder what computers will look like when I am older. Will they have holographic screens?')">
+                        <span class="text-2xl">📄</span>
+                        <span>dreams.txt</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+// 3. TAMARA'S PORTFOLIO: "حقيبة أعمال تمارا"
+function openTamaraPortfolio() {
+    createWindow({
+        id: 'tamara-portfolio',
+        title: 'حقيبة أعمال تمارا - Tamara\'s Portfolio',
+        icon: '💼',
+        width: 580,
+        height: 400,
+        contentHTML: `
+            <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-2 text-xs flex justify-between items-center">
+                <span>📂 Folder: C:\\Tamara\\Portfolio\\</span>
+                <span class="text-yellow-300 font-bold">Time Capsule 1999</span>
+            </div>
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    
+                    <div class="file-item" ondblclick="openCoffeePhoto()">
+                        <span class="text-2xl">☕</span>
+                        <span class="font-bold text-amber-800">coffee.jpg</span>
+                    </div>
+
+                    <div class="file-item" ondblclick="playTamaraWelcomeAudio()">
+                        <span class="text-2xl">🔊</span>
+                        <span class="font-bold text-blue-600">Tamara_Welcome.wav</span>
+                    </div>
+
+                    <div class="file-item" ondblclick="openNotePad('digital_skills.txt', '=== TAMARA DIGITAL SKILLS (1999) ===\n- HTML 4.0 / Web Design\n- Graphic Design & Pixel Art\n- BASIC / C Programming Basics\n- Database Management\n- Windows 98 System Config')">
+                        <span class="text-2xl">📝</span>
+                        <span>digital_skills.txt</span>
+                    </div>
+
+                    <div class="file-item" ondblclick="openNotePad('portfolio.html', '<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\">\n<html>\n<head><title>Tamara 1999 Portfolio</title></head>\n<body bgcolor=\"#000080\" text=\"#FFFFFF\">\n<h1>Welcome to Tamara\'s Digital World</h1>\n<p>Creating beautiful digital experiences using HTML & CSS.</p>\n</body>\n</html>')">
+                        <span class="text-2xl">🌐</span>
+                        <span>portfolio.html</span>
+                    </div>
+
+                    <div class="file-item" ondblclick="openNotePad('web_design.htm', '=== WEB DESIGN PROJECTS ===\n1. Personal Homepage (1999)\n2. School Computer Club Forum\n3. Graphics Gallery')">
+                        <span class="text-2xl">🌐</span>
+                        <span>web_design.htm</span>
+                    </div>
+
+                    <div class="file-item" ondblclick="openNotePad('database_project.txt', '=== DATABASE PROJECT ===\nProject Name: School Library Index\nBuilt with: MS Access 97\nDate: October 1999')">
+                        <span class="text-2xl">📊</span>
+                        <span>database_project.txt</span>
+                    </div>
+
+                    <div class="file-item" ondblclick="openNotePad('رسالة_شكر.txt', 'لمن أعطاني المعرفة لصنع وإنتاج هذا العمل، جزاك الله خيرًا وزادك الله علمًا.\n\n1999')">
+                        <span class="text-2xl">📜</span>
+                        <span class="font-bold text-green-700">رسالة_شكر.txt</span>
+                    </div>
+
+                </div>
+            </div>
+        `
+    });
+}
+
+
+// 5. COFFEE PHOTO VIEWER (`coffee.jpg`)
+function openCoffeePhoto() {
+    createWindow({
+        id: 'coffee-photo-viewer',
+        title: 'Image Viewer - coffee.jpg',
+        icon: '🖼️',
+        width: 520,
+        height: 460,
+        contentHTML: `
+            <div class="bg-gray-300 p-1 border-b border-gray-400 text-xs flex justify-between">
+                <span>File: coffee.jpg | Resolution: 640 × 480 | Date: October 12, 1999</span>
+                <span class="text-gray-600">24-bit True Color</span>
+            </div>
+            <div class="win-box-inset m-2 p-2 bg-black flex-1 flex flex-col items-center justify-center">
+                <!-- Synthesized 1999 retro Polaroid style coffee photo SVG canvas rendering -->
+                <svg width="400" height="300" viewBox="0 0 640 480" class="border border-gray-600 shadow-2xl">
+                    <!-- Background cozy 90s ambient room desk -->
+                    <rect width="640" height="480" fill="#2d1b0f"/>
+                    <!-- Wooden Desk surface -->
+                    <polygon points="0,200 640,200 640,480 0,480" fill="#4a2e1b"/>
+                    <line x1="0" y1="200" x2="640" y2="200" stroke="#1f1107" stroke-width="4"/>
+                    
+                    <!-- CRT Monitor Bezel in background left -->
+                    <rect x="40" y="60" width="220" height="180" rx="10" fill="#d0c8b6" stroke="#8a8270" stroke-width="6"/>
+                    <rect x="60" y="80" width="180" height="130" rx="15" fill="#003366"/>
+                    <text x="75" y="150" font-family="monospace" font-size="16" fill="#00ff00">> C:\\TAMARA> 1999</text>
+                    
+                    <!-- Retro Keyboard on Desk -->
+                    <rect x="50" y="260" width="300" height="80" rx="4" fill="#dfd7c6" stroke="#9a9280" stroke-width="4"/>
+                    <!-- Key grid effect -->
+                    <rect x="70" y="270" width="260" height="40" fill="#b0a896"/>
+
+                    <!-- Cup of Coffee with Warm Lighting & Steam -->
+                    <ellipse cx="480" cy="320" rx="90" ry="40" fill="#1f1107" opacity="0.4"/>
+                    <!-- Saucer -->
+                    <ellipse cx="480" cy="310" rx="80" ry="30" fill="#e8e2d5" stroke="#b0a896" stroke-width="3"/>
+                    <!-- Cup Body -->
+                    <path d="M 420 270 C 420 330, 540 330, 540 270 Z" fill="#f5f0e6" stroke="#c0b8a6" stroke-width="4"/>
+                    <!-- Cup Handle -->
+                    <path d="M 540 280 C 570 280, 570 310, 540 310" fill="none" stroke="#f5f0e6" stroke-width="8"/>
+                    <!-- Coffee Surface -->
+                    <ellipse cx="480" cy="270" rx="55" ry="22" fill="#3d2314"/>
+                    <ellipse cx="480" cy="270" rx="45" ry="17" fill="#54321d"/>
+                    <!-- Foam Heart Art -->
+                    <path d="M 480 273 C 470 260, 460 275, 480 285 C 500 275, 490 260, 480 273 Z" fill="#d2b48c" opacity="0.8"/>
+
+                    <!-- Animated Steam Vapor -->
+                    <path d="M 460 240 Q 450 210 470 180" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.3"/>
+                    <path d="M 490 240 Q 510 210 490 170" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.3"/>
+
+                    <!-- Warm Nostalgic Polaroid Camera Lighting Vignette -->
+                    <rect width="640" height="480" fill="url(#warmGlow)" opacity="0.3" mix-blend-mode="overlay"/>
+                    <defs>
+                        <radialGradient id="warmGlow" cx="70%" cy="60%" r="80%">
+                            <stop offset="0%" stop-color="#ffaa44"/>
+                            <stop offset="100%" stop-color="#000000"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- Timestamp 1999 in classic yellow camera font -->
+                    <text x="480" y="450" font-family="VT323, monospace" font-size="28" fill="#ffaa00" font-weight="bold">'99 10 12</text>
+                </svg>
+            </div>
+        `
+    });
+}
+
+// 6. TAMARA'S WELCOME AUDIO (`Tamara_Welcome.wav`)
+function playTamaraWelcomeAudio() {
+    createWindow({
+        id: 'tamara-audio-player',
+        title: 'Windows Media Player - Tamara_Welcome.wav',
+        icon: '🎵',
+        width: 440,
+        height: 260,
+        contentHTML: `
+            <div class="bg-gray-800 text-green-400 p-3 font-mono text-xs flex flex-col justify-between h-full">
+                <div class="border border-green-600 p-2 bg-black flex items-center space-x-3">
+                    <span class="text-2xl animate-pulse">▶</span>
+                    <div>
+                        <div class="text-white font-bold text-sm">Tamara_Welcome.wav</div>
+                        <div class="text-green-500">Audio Format: PCM 22.050 kHz, 16 Bit, Mono</div>
+                        <div class="text-yellow-400 text-xs mt-1 font-sans">"تمارا ترحب بكم في جهازها الخاص."</div>
+                    </div>
+                </div>
+
+                <div class="win-box p-3 bg-gray-200 text-black font-sans my-2">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span>Audio Playback Status:</span>
+                        <span id="audio-status-text" class="font-bold text-blue-800">Playing...</span>
+                    </div>
+                    <div class="w-full bg-gray-400 h-4 border border-black relative overflow-hidden">
+                        <div id="audio-progress-bar" class="bg-blue-800 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center space-x-2">
+                    <button class="win-btn font-bold px-4 py-1 text-black" onclick="triggerArabicVoiceSpeech()">▶ Play Audio</button>
+                </div>
+            </div>
+        `
+    });
+
+    triggerArabicVoiceSpeech();
+}
+
+function triggerArabicVoiceSpeech() {
+    const statusText = document.getElementById('audio-status-text');
+    const progressBar = document.getElementById('audio-progress-bar');
+    if (statusText) statusText.textContent = "Playing Voice...";
+    if (progressBar) progressBar.style.width = "100%";
+
+    sounds.playClick();
+
+    // Use Web Speech Synthesis API for natural Arabic audio playback
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Reset
+        const utterance = new SpeechSynthesisUtterance("تمارا ترحب بكم في جهازها الخاص.");
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.9; // Natural tempo
+        utterance.pitch = 1.1; // Gentle voice
+        
+        utterance.onend = () => {
+            if (statusText) statusText.textContent = "Completed";
+        };
+        
+        window.speechSynthesis.speak(utterance);
+    } else {
+        if (statusText) statusText.textContent = "Playing (Synthesized)";
+    }
+}
+
+// 7. CHILD MEMORY VIDEO (`video_1999.mp4`)
+function openChildMemoryVideo() {
+    createWindow({
+        id: 'child-video-player',
+        title: 'Windows Media Player - video_1999.mp4',
+        icon: '🎬',
+        width: 480,
+        height: 380,
+        contentHTML: `
+            <div class="bg-black text-white p-2 flex-1 flex flex-col justify-between">
+                <div class="relative w-full h-64 bg-gray-900 border border-gray-700 overflow-hidden flex items-center justify-center">
+                    <!-- Synthesized late 90s Camcorder Video Simulation Canvas -->
+                    <canvas id="child-video-canvas" width="320" height="240" class="w-full h-full object-contain"></canvas>
+
+                    <!-- VHS Camcorder UI Overlay -->
+                    <div class="absolute top-2 left-2 text-red-500 font-mono text-xs flex items-center space-x-1 animate-pulse">
+                        <span class="w-3 h-3 rounded-full bg-red-600 inline-block"></span>
+                        <span>REC</span>
+                    </div>
+                    <div class="absolute top-2 right-2 text-yellow-300 font-mono text-xs">
+                        <span>SP 0:00:04</span>
+                    </div>
+                    <div class="absolute bottom-2 left-2 text-white font-mono text-xs">
+                        <span>OCT. 14 1999</span>
+                    </div>
+                </div>
+
+                <div class="win-box p-2 bg-gray-200 text-black flex items-center justify-between mt-2">
+                    <button class="win-btn font-bold px-3 py-1" onclick="playChildVideoCanvas()">▶ Play [00:04]</button>
+                    <span class="text-xs font-mono text-gray-700">video_1999.mp4 (4 Seconds)</span>
+                </div>
+            </div>
+        `
+    });
+
+    playChildVideoCanvas();
+}
+
+function playChildVideoCanvas() {
+    sounds.playChildLaughter();
+    const canvas = document.getElementById('child-video-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let frame = 0;
+    const totalFrames = 120; // ~4 seconds at 30fps
+
+    const render = () => {
+        if (frame >= totalFrames) return;
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0, 0, 320, 240);
+
+        // Animated warm home video scene with small laughing child icon representation
+        const bounce = Math.sin(frame * 0.2) * 8;
+        
+        // Warm home background
+        ctx.fillStyle = '#8b5a2b';
+        ctx.fillRect(0, 160, 320, 80);
+
+        // Child drawing (soft 90s camcorder aesthetic)
+        ctx.fillStyle = '#ffdbac';
+        ctx.beginPath();
+        ctx.arc(160, 100 + bounce, 35, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Eyes (Laughing)
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(148, 95 + bounce, 6, Math.PI, 0);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(172, 95 + bounce, 6, Math.PI, 0);
+        ctx.stroke();
+
+        // Big Smile
+        ctx.beginPath();
+        ctx.arc(160, 110 + bounce, 14, 0, Math.PI);
+        ctx.stroke();
+
+        // Child Body
+        ctx.fillStyle = '#ff4500';
+        ctx.fillRect(135, 135 + bounce, 50, 60);
+
+        // Scanline VHS noise effect on frame
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        for (let i = 0; i < 240; i += 4) {
+            ctx.fillRect(0, i + (frame % 4), 320, 1);
+        }
+
+        frame++;
+        requestAnimationFrame(render);
+    };
+
+    render();
+}
+
+// 8. NOTEPAD APP (Text File Viewer)
+function openNotePad(filename, textContent) {
+    sounds.playClick();
+    const safeId = filename.replace(/[^a-zA-Z0-9]/g, '-');
+    createWindow({
+        id: `notepad-${safeId}`,
+        title: `Notepad - ${filename}`,
+        icon: '📝',
+        width: 480,
+        height: 320,
+        contentHTML: `
+            <div class="bg-gray-200 border-b border-gray-400 text-xs px-2 py-0.5 flex space-x-3">
+                <span class="hover:underline cursor-pointer">File</span>
+                <span class="hover:underline cursor-pointer">Edit</span>
+                <span class="hover:underline cursor-pointer">Search</span>
+                <span class="hover:underline cursor-pointer">Help</span>
+            </div>
+            <textarea class="win-box-inset flex-1 p-3 font-mono text-xs resize-none outline-none leading-relaxed text-black" readonly>${textContent}</textarea>
+        `
+    });
+}
+
+// 9. LETTERS FOLDER
+function openLettersFolder() {
+    createWindow({
+        id: 'letters-folder',
+        title: 'Letters & Memories',
+        icon: '✉️',
+        width: 500,
+        height: 340,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openNotePad('letter_to_friend.txt', 'Dear Sarah,\n\nI spent all afternoon tweaking my HTML website. Computer technology is moving so fast! I hope we stay friends forever even when we go to different universities.\n\n- Tamara (1999)')">
+                        <span class="text-2xl">✉️</span>
+                        <span>letter_to_friend.txt</span>
+                    </div>
+                    <div class="file-item" ondblclick="openNotePad('my_future.txt', 'Maybe one day computers will understand what we say. Maybe they will hold all our memories.')">
+                        <span class="text-2xl">📄</span>
+                        <span>my_future.txt</span>
+                    </div>
+                    <div class="file-item" ondblclick="openNotePad('school.txt', 'Computer Science class was great today. Mr. Ahmad taught us about databases and logic.')">
+                        <span class="text-2xl">📄</span>
+                        <span>school.txt</span>
+                    </div>
+                    <div class="file-item" ondblclick="openNotePad('computer.txt', 'I wonder if someone will ever read these files in the far future...')">
+                        <span class="text-2xl">📄</span>
+                        <span>computer.txt</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+// 10. PHOTOS FOLDER
+function openPhotosFolder() {
+    createWindow({
+        id: 'photos-folder',
+        title: 'Photos (640x480 Archive)',
+        icon: '📸',
+        width: 520,
+        height: 360,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openCoffeePhoto()">
+                        <span class="text-2xl">☕</span>
+                        <span class="font-bold">coffee.jpg</span>
+                    </div>
+                    <div class="file-item" ondblclick="openChildMemoryVideo()">
+                        <span class="text-2xl">🎬</span>
+                        <span class="font-bold text-red-600">video_1999.mp4</span>
+                    </div>
+                    <div class="file-item" ondblclick="openModal('birthday.jpg', 'Photo: Birthday 1999 [640x480]')">
+                        <span class="text-2xl">🖼️</span>
+                        <span>birthday.jpg</span>
+                    </div>
+                    <div class="file-item" ondblclick="openModal('family.jpg', 'Photo: Family Gathering [640x480]')">
+                        <span class="text-2xl">🖼️</span>
+                        <span>family.jpg</span>
+                    </div>
+                    <div class="file-item" ondblclick="openModal('school.jpg', 'Photo: Computer Club Class [640x480]')">
+                        <span class="text-2xl">🖼️</span>
+                        <span>school.jpg</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+
+// 3. CLASSIC MS PAINT APPLICATION EXPERIENCE
+let paintCtx = null;
+let currentPaintTool = 'pencil';
+let currentPaintColor = '#000000';
+let isDrawing = false;
+let startX = 0, startY = 0;
+
+function openPaintApp() {
+    createWindow({
+        id: 'paint-app',
+        title: 'untitled - Paint',
+        icon: '🎨',
+        width: 620,
+        height: 440,
+        contentHTML: `
+            <!-- Top Menus -->
+            <div class="bg-gray-200 border-b border-gray-400 text-xs px-2 py-0.5 flex space-x-3">
+                <span class="hover:underline cursor-pointer">File</span>
+                <span class="hover:underline cursor-pointer">Edit</span>
+                <span class="hover:underline cursor-pointer">View</span>
+                <span class="hover:underline cursor-pointer">Image</span>
+                <span class="hover:underline cursor-pointer">Colors</span>
+                <span class="hover:underline cursor-pointer">Help</span>
+            </div>
+
+            <div class="flex-1 flex overflow-hidden bg-gray-300">
+                <!-- Left Paint Toolbar -->
+                <div class="w-12 bg-gray-300 p-1 flex flex-col space-y-1 border-r border-gray-400">
+                    <button class="win-btn p-1 text-xs" title="Pencil" onclick="setPaintTool('pencil')">✏️</button>
+                    <button class="win-btn p-1 text-xs" title="Brush" onclick="setPaintTool('brush')">🖌️</button>
+                    <button class="win-btn p-1 text-xs" title="Eraser" onclick="setPaintTool('eraser')">🧹</button>
+                    <button class="win-btn p-1 text-xs" title="Line" onclick="setPaintTool('line')">📏</button>
+                    <button class="win-btn p-1 text-xs" title="Rectangle" onclick="setPaintTool('rectangle')">🔲</button>
+                    <button class="win-btn p-1 text-xs" title="Fill Bucket" onclick="setPaintTool('fill')">🪣</button>
+                    <button class="win-btn p-1 text-xs" title="Clear Canvas" onclick="clearPaintCanvas()">🗑️</button>
+                </div>
+
+                <!-- Canvas Wrapper -->
+                <div class="paint-canvas-wrapper flex-1">
+                    <canvas id="paint-canvas" width="480" height="300" class="border border-black bg-white"></canvas>
+                </div>
+            </div>
+
+            <!-- Bottom Color Palette -->
+            <div class="p-1 bg-gray-300 border-t border-gray-400 flex items-center space-x-2 text-xs">
+                <div id="current-color-preview" class="w-5 h-5 border border-black bg-black"></div>
+                <div class="flex space-x-1">
+                    ${['#000000','#808080','#800000','#808000','#008000','#008080','#000080','#800080','#ffffff','#c0c0c0','#ff0000','#ffff00','#00ff00','#00ffff','#0000ff','#ff00ff']
+                        .map(c => `<div class="w-4 h-4 border border-black cursor-pointer" style="background-color:${c}" onclick="setPaintColor('${c}')"></div>`).join('')}
+                </div>
+            </div>
+        `
+    });
+
+    initPaintCanvas();
+}
+
+function setPaintTool(tool) {
+    currentPaintTool = tool;
+    sounds.playClick();
+}
+
+function setPaintColor(color) {
+    currentPaintColor = color;
+    const preview = document.getElementById('current-color-preview');
+    if (preview) preview.style.backgroundColor = color;
+    sounds.playClick();
+}
+
+function clearPaintCanvas() {
+    sounds.playClick();
+    const canvas = document.getElementById('paint-canvas');
+    if (canvas && paintCtx) {
+        paintCtx.fillStyle = '#ffffff';
+        paintCtx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
+function initPaintCanvas() {
+    const canvas = document.getElementById('paint-canvas');
+    if (!canvas) return;
+    paintCtx = canvas.getContext('2d');
+    paintCtx.fillStyle = '#ffffff';
+    paintCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+    };
+
+    canvas.onmousedown = (e) => {
+        isDrawing = true;
+        const pos = getPos(e);
+        startX = pos.x;
+        startY = pos.y;
+        paintCtx.beginPath();
+        paintCtx.moveTo(startX, startY);
+    };
+
+    canvas.onmousemove = (e) => {
+        if (!isDrawing) return;
+        const pos = getPos(e);
+
+        if (currentPaintTool === 'pencil' || currentPaintTool === 'brush') {
+            paintCtx.strokeStyle = currentPaintColor;
+            paintCtx.lineWidth = currentPaintTool === 'brush' ? 4 : 1;
+            paintCtx.lineTo(pos.x, pos.y);
+            paintCtx.stroke();
+        } else if (currentPaintTool === 'eraser') {
+            paintCtx.strokeStyle = '#ffffff';
+            paintCtx.lineWidth = 12;
+            paintCtx.lineTo(pos.x, pos.y);
+            paintCtx.stroke();
+        }
+    };
+
+    canvas.onmouseup = (e) => {
+        if (!isDrawing) return;
+        isDrawing = false;
+        const pos = getPos(e);
+
+        if (currentPaintTool === 'line') {
+            paintCtx.strokeStyle = currentPaintColor;
+            paintCtx.lineWidth = 2;
+            paintCtx.lineTo(pos.x, pos.y);
+            paintCtx.stroke();
+        } else if (currentPaintTool === 'rectangle') {
+            paintCtx.strokeStyle = currentPaintColor;
+            paintCtx.lineWidth = 2;
+            paintCtx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+        } else if (currentPaintTool === 'fill') {
+            paintCtx.fillStyle = currentPaintColor;
+            paintCtx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    };
+}
+
+
+// 12. FICTIONAL 1999 INTERNET BROWSER & DIAL-UP SEQUENCE
+function openInternetBrowser() {
+    createWindow({
+        id: 'internet-browser',
+        title: 'Microsoft Internet Explorer 5.0',
+        icon: '🌐',
+        width: 600,
+        height: 420,
+        contentHTML: `
+            <div id="browser-connecting" class="win-box-inset m-4 p-6 bg-white flex flex-col items-center justify-center space-y-4 text-center">
+                <div class="text-3xl animate-bounce">🌐</div>
+                <div class="text-sm font-bold">Connecting to Dial-Up Internet...</div>
+                <div class="text-xs text-gray-600">Dialing 555-0199 (Tamara ISP)...</div>
+                <div class="w-64 bg-gray-300 h-4 border border-black overflow-hidden">
+                    <div id="dialup-progress" class="bg-blue-800 h-full w-0 transition-all duration-1000"></div>
+                </div>
+            </div>
+
+            <div id="browser-content" class="hidden flex-1 flex flex-col bg-white">
+                <div class="bg-gray-200 border-b border-gray-400 p-1 flex items-center space-x-2 text-xs">
+                    <span class="font-bold">Address:</span>
+                    <input type="text" value="http://www.tamara-1999-homepage.net" class="flex-1 win-box-inset px-2 py-0.5 font-mono text-xs" readonly>
+                    <button class="win-btn font-bold px-2">Go</button>
+                </div>
+                
+                <div class="p-4 flex-1 overflow-auto bg-[#fffff0] font-serif text-black">
+                    <div class="text-center border-b-2 border-blue-900 pb-2 mb-4">
+                        <h1 class="text-2xl font-bold text-blue-900">Welcome to Tamara's 1999 Personal Web Homepage!</h1>
+                        <p class="text-xs text-gray-600">Best viewed in 800x600 resolution with Internet Explorer 5.0</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div class="win-box p-3 bg-blue-50">
+                            <h2 class="font-bold text-blue-900 mb-2">📬 Email Inbox (4 Unread)</h2>
+                            <ul class="space-y-1">
+                                <li class="hover:bg-blue-200 cursor-pointer p-1" onclick="openNotePad('email1.txt', 'From: Sarah\nSubject: Hi Tamara!\n\nDid you finish the website project?')">📧 From: Sarah - "Hi Tamara!"</li>
+                                <li class="hover:bg-blue-200 cursor-pointer p-1" onclick="openNotePad('email2.txt', 'From: School Club\nSubject: Call me tonight\n\nDon\'t forget tomorrow\'s meeting.')">📧 From: School Club - "Call me tonight"</li>
+                                <li class="hover:bg-blue-200 cursor-pointer p-1 text-red-700 font-bold" onclick="openNotePad('email_secret.txt', 'From: Unknown\nSubject: Secret File\n\nCheck C:\\Tamara\\Personal\\Old\\DO_NOT_OPEN.txt if you want to see the mysterious note...')">✉️ From: ??? - "Mysterious File Clue"</li>
+                            </ul>
+                        </div>
+
+                        <div class="win-box p-3 bg-yellow-50">
+                            <h2 class="font-bold text-amber-900 mb-2">📖 Guestbook</h2>
+                            <p class="italic mb-2">"Great website Tamara! Love your graphics!" - Alex</p>
+                            <p class="italic">"Keep up the awesome coding!" - Mr. Ahmad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+
+    sounds.playDialupSound(() => {
+        const conn = document.getElementById('browser-connecting');
+        const content = document.getElementById('browser-content');
+        const progress = document.getElementById('dialup-progress');
+        if (progress) progress.style.width = '100%';
+        setTimeout(() => {
+            if (conn) conn.style.display = 'none';
+            if (content) content.classList.remove('hidden');
+        }, 500);
+    });
+}
+
+// 13. GAMES FOLDER & MINESWEEPER
+function openGamesFolder() {
+    createWindow({
+        id: 'games-folder',
+        title: 'Games',
+        icon: '🎮',
+        width: 480,
+        height: 300,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white">
+                <div class="file-grid">
+                    <div class="file-item" ondblclick="openMinesweeper()">
+                        <span class="text-2xl">💣</span>
+                        <span class="font-bold">MINESWEEPER.EXE</span>
+                    </div>
+                    <div class="file-item" ondblclick="openModal('Solitaire', 'Solitaire loaded. High score: 1999 pts!')">
+                        <span class="text-2xl">🃏</span>
+                        <span>SOLITAIRE.EXE</span>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+}
+
+function openMinesweeper() {
+    createWindow({
+        id: 'minesweeper-app',
+        title: 'Minesweeper',
+        icon: '💣',
+        width: 320,
+        height: 380,
+        contentHTML: `
+            <div class="p-2 bg-gray-300 flex flex-col items-center">
+                <div class="win-box p-2 mb-2 flex justify-between items-center w-full max-w-[220px]">
+                    <span class="font-mono text-red-600 font-bold bg-black px-2 py-0.5 text-lg">010</span>
+                    <button class="win-btn text-lg" onclick="openMinesweeper()">🙂</button>
+                    <span class="font-mono text-red-600 font-bold bg-black px-2 py-0.5 text-lg">000</span>
+                </div>
+                <div class="win-box-inset p-1 bg-gray-400 grid grid-cols-6 gap-1" id="minesweeper-grid">
+                    ${Array(36).fill(0).map((_, i) => `<button class="w-8 h-8 win-btn font-bold text-xs" onclick="clickMineTile(this, ${i})"></button>`).join('')}
+                </div>
+                <div id="minesweeper-secret" class="hidden mt-3 text-xs text-blue-900 font-bold animate-pulse text-center">
+                    "Still playing, Tamara?"
+                </div>
+            </div>
+        `
+    });
+}
+
+let mineClicks = 0;
+function clickMineTile(btn, idx) {
+    sounds.playClick();
+    mineClicks++;
+    btn.disabled = true;
+    btn.classList.replace('win-btn', 'win-box-inset');
+    btn.textContent = (idx % 3 === 0) ? '1' : '';
+
+    if (mineClicks >= 5) {
+        const secret = document.getElementById('minesweeper-secret');
+        if (secret) secret.classList.remove('hidden');
+    }
+}
+
+function openRecycleBin() {
+    createWindow({
+        id: 'recycle-bin',
+        title: 'Recycle Bin',
+        icon: '🗑️',
+        width: 440,
+        height: 280,
+        contentHTML: `
+            <div class="win-box-inset m-2 p-2 flex-1 bg-white text-gray-500 text-xs flex items-center justify-center">
+                Recycle Bin is empty.
+            </div>
+        `
+    });
+}
+
+// GENERIC SYSTEM MODAL
+function openModal(title, message) {
+    sounds.playClick();
+    createWindow({
+        id: `modal-${Date.now()}`,
+        title: title,
+        icon: '⚠️',
+        width: 340,
+        height: 180,
+        contentHTML: `
+            <div class="p-4 flex flex-col justify-between flex-1">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">ℹ️</span>
+                    <span class="text-xs leading-normal">${message}</span>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button class="win-btn font-bold px-4 py-1" onclick="closeWindow('modal-${Date.now()}')">OK</button>
+                </div>
+            </div>
+        `
+    });
+}
+
+
+// 15 & 16. THE HIDDEN FILE (`DO_NOT_OPEN.txt`) & FINAL CUTSCENE
+function triggerHiddenFileCutscene() {
+    sounds.playClick();
+    
+    // Intensify CRT distortion during hidden file reveal
+    const crtFrame = document.getElementById('crt-frame');
+    crtFrame.classList.add('animate-pulse');
+
+    createWindow({
+        id: 'hidden-file-window',
+        title: 'Notepad - DO_NOT_OPEN.txt',
+        icon: '🔒',
+        width: 540,
+        height: 400,
+        contentHTML: `
+            <div class="p-4 bg-black text-green-400 font-mono text-sm flex-1 flex flex-col justify-between" id="cutscene-box">
+                <div id="typing-text-area" class="space-y-2 whitespace-pre-wrap"></div>
+                <div id="user-input-area" class="hidden mt-4 border-t border-green-800 pt-3">
+                    <div class="text-yellow-300 text-xs mb-2">Type your answer to Tamara:</div>
+                    <div class="flex space-x-2">
+                        <input type="text" id="user-answer-input" class="flex-1 bg-gray-900 border border-green-600 text-green-300 px-2 py-1 text-xs outline-none" placeholder="Your answer...">
+                        <button class="win-btn text-black font-bold text-xs px-3" onclick="submitUserAnswer()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        `
+    });
+
+    startLineByLineCutscene();
+}
+
+const cutsceneLines = [
+    "If you're reading this in the future...",
+    "I don't know what year it is where you are.",
+    "I don't know what computers look like anymore.",
+    "But if you're reading this...",
+    "Then somehow, this survived.",
+    "I have one question for you:",
+    "Did we ever make technology feel more human?"
+];
+
+function startLineByLineCutscene() {
+    const area = document.getElementById('typing-text-area');
+    const inputArea = document.getElementById('user-input-area');
+    let lineIdx = 0;
+
+    function printNextLine() {
+        if (lineIdx < cutsceneLines.length) {
+            const p = document.createElement('div');
+            p.textContent = cutsceneLines[lineIdx];
+            p.className = "text-green-400 font-bold tracking-wide";
+            if (area) area.appendChild(p);
+            lineIdx++;
+            setTimeout(printNextLine, 1400);
+        } else {
+            if (inputArea) inputArea.classList.remove('hidden');
+        }
+    }
+
+    setTimeout(printNextLine, 800);
+}
+
+function submitUserAnswer() {
+    sounds.playClick();
+    const box = document.getElementById('cutscene-box');
+    if (!box) return;
+
+    box.innerHTML = `
+        <div class="flex-1 flex flex-col items-center justify-center space-y-4 text-center">
+            <div class="text-white text-lg font-bold">Thank you.</div>
+            <div class="text-gray-300 text-sm">Maybe the future isn't about better computers.</div>
+            <div class="text-gray-300 text-sm">Maybe it's about what we choose to do with them.</div>
+            <div class="text-yellow-400 text-lg font-bold mt-4">Goodbye, Tamara.</div>
+        </div>
+    `;
+
+    setTimeout(() => {
+        triggerShutdownSequence();
+    }, 4500);
+}
+
+function triggerShutdownSequence() {
+    const crtFrame = document.getElementById('crt-frame');
+    crtFrame.classList.add('shutdown-anim');
+
+    setTimeout(() => {
+        document.body.innerHTML = `
+            <div class="w-screen h-screen bg-black flex flex-col items-center justify-center text-white font-mono p-6 space-y-4 text-center">
+                <div class="text-xl text-gray-400 animate-pulse">Someone left a computer behind.</div>
+                <div class="text-2xl text-yellow-300 font-bold">You found it.</div>
+                <button class="mt-8 win-btn text-black font-bold px-6 py-2" onclick="location.reload()">Reboot CRT Monitor</button>
+            </div>
+        `;
+    }, 1000);
+}
+</script>
+
+</body>
+</html>

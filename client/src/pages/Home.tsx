@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 
 const ASSET = (file: string) => `${import.meta.env.BASE_URL}media/${file}`;
+const INTERACTIVE = (file: string) => `${import.meta.env.BASE_URL}interactive/${file}`;
 
 const palette = {
   butter: "#F2E6C9",
@@ -62,6 +63,10 @@ const videoData = [
 const interactiveProjects = [
   { title: "Interview Coach", label: "Live website", desc: "A focused digital experience for practicing interview confidence.", href: liveLinks.interview, thumb: ASSET("interview-coach.webp"), iframe: liveLinks.interview, tone: "teal" },
   { title: "قرارات تحت الضغط", label: "KoboToolbox · نموذج Enketo تفاعلي", desc: "An interactive decision-making form built for real-world use.", href: liveLinks.kobo, thumb: ASSET("kobo-enketo.webp"), iframe: liveLinks.kobo, tone: "rose" },
+  { title: "تجربة كن باريستا", label: "Drive HTML · تجربة تعليمية", desc: "A playful, source-preserved learning experience for becoming a barista.", href: INTERACTIVE("barista.html"), iframe: INTERACTIVE("barista.html"), tone: "berry" },
+  { title: "Computer from 1999", label: "Drive HTML · تجربة شخصية", desc: "Tamara's retro personal web world, preserved as a living interactive artifact.", href: INTERACTIVE("computer-1999.html"), iframe: INTERACTIVE("computer-1999.html"), tone: "sand" },
+  { title: "Maze Runner", label: "Drive HTML · لعبة تفاعلية", desc: "A five-stage maze game from the source folder, playable directly in the exhibition.", href: INTERACTIVE("maza-game.html"), iframe: INTERACTIVE("maza-game.html"), tone: "coral" },
+  { title: "مختبر قانون أوم", label: "Drive HTML · مختبر تفاعلي", desc: "An interactive Ohm's law laboratory for visual, hands-on learning.", href: INTERACTIVE("ohms-law.html"), iframe: INTERACTIVE("ohms-law.html"), tone: "olive" },
 ];
 
 const imageWorks = [
@@ -89,7 +94,7 @@ function SectionHeading({ index, eyebrow, title, subtitle }: { index: string; ey
 
 function BrowserMockup({ title, label, desc, href, thumb, iframe, tone }: (typeof interactiveProjects)[number]) {
   return <article className={`browser-card ${tone} reveal`}>
-    <div className="browser-top"><span className="browser-dots"><i /><i /><i /></span><span className="address">{new URL(href).hostname}</span><ExternalLink size={15} /></div>
+    <div className="browser-top"><span className="browser-dots"><i /><i /><i /></span><span className="address">{new URL(href, window.location.origin).hostname}</span><ExternalLink size={15} /></div>
     <a href={href} target="_blank" rel="noopener noreferrer" className="browser-screen">{iframe ? <iframe src={iframe} title={`${title} live preview`} loading="lazy" /> : <img src={thumb} alt={`${title} preview`} loading="lazy" />}<span className="screen-overlay"><span>Open live experience</span><ArrowUpRight size={18} /></span></a>
     <div className="browser-copy"><span className="mini-label">{label}</span><h3>{title}</h3><p>{desc}</p><ExternalButton href={href} filled>OPEN LIVE PROJECT</ExternalButton></div>
   </article>;

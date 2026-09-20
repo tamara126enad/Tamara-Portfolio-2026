@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر قانون أوم التفاعلي ⚡</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #030712; color: #f3f4f6; overflow-x: hidden; }
+        canvas { background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); touch-action: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-6">
+
+    <header class="w-full max-w-6xl mx-auto text-center mb-4">
+        <h1 class="text-3xl md:text-5xl font-black bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent pb-1">
+            مختبر قانون أوم وحركة الكهرباء ⚡
+        </h1>
+        <p class="text-slate-400 mt-2 text-sm md:text-base">
+            اكتشف العلاقة السحرية بين الجهد الكهربائي (V)، المقاومة (R)، وشدة التيار (I) بطريقة مرئية وتفاعلية مذهلة!
+        </p>
+    </header>
+
+    <main class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
+        
+        <div class="lg:col-span-2 bg-slate-900/90 backdrop-blur border border-slate-800 rounded-3xl p-4 flex flex-col items-center justify-between relative shadow-2xl">
+            <div class="absolute top-4 right-4 bg-emerald-950/80 px-3 py-1.5 rounded-xl border border-emerald-800/60 text-xs text-emerald-300 font-semibold flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                دائرة كهربائية حية
+            </div>
+
+            <!-- Formula badge -->
+            <div id="formulaBadge" class="absolute top-4 left-4 bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wider">
+                I = V / R
+            </div>
+            
+            <div class="w-full flex-grow flex items-center justify-center relative my-4">
+                <canvas id="ohmCanvas" class="w-full max-w-[540px] h-[360px] rounded-2xl border border-slate-800 shadow-inner cursor-pointer"></canvas>
+            </div>
+
+            <!-- Quick Live Stats Bar -->
+            <div class="w-full grid grid-cols-3 gap-3 text-center">
+                <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+                    <span class="block text-xs text-slate-400">الجهد (فولت)</span>
+                    <span id="voltValDisplay" class="text-sm md:text-base font-bold text-amber-400">12.0 V</span>
+                </div>
+                <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+                    <span class="block text-xs text-slate-400">المقاومة (أوم)</span>
+                    <span id="resValDisplay" class="text-sm md:text-base font-bold text-rose-400">10 Ω</span>
+                </div>
+                <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+                    <span class="block text-xs text-slate-400">التيار (أمبير)</span>
+                    <span id="currValDisplay" class="text-sm md:text-base font-bold text-emerald-400">1.20 A</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900/90 backdrop-blur border border-slate-800 rounded-3xl p-5 flex flex-col justify-between shadow-2xl">
+            <div>
+                <h2 class="text-lg font-bold text-slate-200 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    لوحة التحكم بالمتغيرات
+                </h2>
+
+                <!-- Sliders for Voltage and Resistance -->
+                <div class="space-y-4 mb-5">
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span>الجهد الكهربائي (Battery Voltage - V)</span>
+                            <span id="voltageText" class="text-amber-400 font-bold">12 V</span>
+                        </div>
+                        <input type="range" id="voltageSlider" min="1" max="24" step="1" value="12" class="w-full accent-amber-500 cursor-pointer">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span>المقاومة الكهربائية (Resistor - R)</span>
+                            <span id="resistanceText" class="text-rose-400 font-bold">10 Ω</span>
+                        </div>
+                        <input type="range" id="resistanceSlider" min="2" max="50" step="1" value="10" class="w-full accent-rose-500 cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Simulation Mode Presets -->
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <button onclick="setPreset(5, 25)" class="bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-200 py-2 rounded-xl text-xs font-semibold transition">مقاومة عالية جداً</button>
+                    <button onclick="setPreset(20, 4)" class="bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-200 py-2 rounded-xl text-xs font-semibold transition">تيار عالي (خطر)</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Scientific Explanation Box -->
+            <div id="explanationBox" class="bg-slate-950/90 border border-slate-800 rounded-2xl p-3.5 text-xs leading-relaxed text-slate-300">
+                <span class="font-bold text-emerald-400 block mb-1">قانون أوم (V = I × R):</span>
+                يوضح قانون أوم أن شدة التيار (حركة الإلكترونات) تتناسب طردياً مع الجهد وعكسياً مع المقاومة. جرب رفع الجهد لزيادة سرعة الشحنات أو رفع المقاومة لإبطائها!
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full max-w-6xl mx-auto text-center mt-4 text-xs text-slate-500">
+        مختبر الفيزياء الكهربائية التفاعلي &bull; فهم حركة الكهرباء ببساطة
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('ohmCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // State variables
+        let voltage = 12; // Volts
+        let resistance = 10; // Ohms
+        let electrons = [];
+        const numElectrons = 35;
+
+        // Initialize particles along the loop path
+        for (let i = 0; i < numElectrons; i++) {
+            electrons.push({
+                progress: i / numElectrons,
+                size: 4 + Math.random() * 2
+            });
+        }
+
+        // UI references
+        const voltageSlider = document.getElementById('voltageSlider');
+        const resistanceSlider = document.getElementById('resistanceSlider');
+        const voltageText = document.getElementById('voltageText');
+        const resistanceText = document.getElementById('resistanceText');
+        const voltValDisplay = document.getElementById('voltValDisplay');
+        const resValDisplay = document.getElementById('resValDisplay');
+        const currValDisplay = document.getElementById('currValDisplay');
+        const explanationBox = document.getElementById('explanationBox');
+
+        voltageSlider.addEventListener('input', (e) => {
+            voltage = parseFloat(e.target.value);
+            voltageText.textContent = voltage + ' V';
+            voltValDisplay.textContent = voltage.toFixed(1) + ' V';
+            updateOhm();
+        });
+
+        resistanceSlider.addEventListener('input', (e) => {
+            resistance = parseFloat(e.target.value);
+            resistanceText.textContent = resistance + ' Ω';
+            resValDisplay.textContent = resistance + ' Ω';
+            updateOhm();
+        });
+
+        function setPreset(v, r) {
+            voltage = v;
+            resistance = r;
+            voltageSlider.value = v;
+            resistanceSlider.value = r;
+            voltageText.textContent = v + ' V';
+            resistanceText.textContent = r + ' Ω';
+            voltValDisplay.textContent = v.toFixed(1) + ' V';
+            resValDisplay.textContent = r + ' Ω';
+            updateOhm();
+        }
+
+        function updateOhm() {
+            // Calculate current I = V / R
+            const current = voltage / resistance;
+            currValDisplay.textContent = current.toFixed(2) + ' A';
+
+            if (current > 3.0) {
+                explanationBox.innerHTML = `<span class="font-bold text-rose-400 block mb-1">تنبيه تيار عالٍ!</span> التيار الكهربائي قوي جداً هنا بسبب الجهد المرتفع والمقاومة المنخفضة، مما يجعل الإلكترونات تتحرك بسرعة فائقة عبر الأسلاك.`;
+            } else if (current < 0.3) {
+                explanationBox.innerHTML = `<span class="font-bold text-amber-400 block mb-1">مقاومة كبيرة جداً!</span> المقاومة العالية تعيق حركة الإلكترونات بشدة، مما يجعل تدفق التيار الكهربائي بطيئاً وضعيفاً للغاية.`;
+            } else {
+                explanationBox.innerHTML = `<span class="font-bold text-emerald-400 block mb-1">تدفق كهربائي متوازن:</span> التيار يسري بسلاسة تامة. شدة التيار (${current.toFixed(2)} أمبير) تساوي ناتج قسمة الجهد على المقاومة.`;
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            const current = voltage / resistance;
+            // Speed proportional to current
+            const speed = current * 0.003;
+
+            for (let el of electrons) {
+                el.progress += speed;
+                if (el.progress > 1) el.progress -= 1;
+            }
+
+            drawCircuit();
+            requestAnimationFrame(animate);
+        }
+
+        function drawCircuit() {
+            const width = canvas.width / window.devicePixelRatio;
+            const height = canvas.height / window.devicePixelRatio;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const rectX = 70;
+            const rectY = 55;
+            const rectW = width - 140;
+            const rectH = height - 110;
+            const cornerRadius = 24;
+
+            // Draw circuit wire path (rounded rectangle)
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.roundRect(rectX, rectY, rectW, rectH, cornerRadius);
+            ctx.stroke();
+
+            // Inner glowing wire path
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(rectX, rectY, rectW, rectH, cornerRadius);
+            ctx.stroke();
+
+            // Draw Battery (Voltage Source) at bottom center
+            const batteryX = width / 2;
+            const batteryY = rectY + rectH;
+            
+            ctx.fillStyle = '#1e293b';
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(batteryX - 45, batteryY - 18, 90, 36, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#fde047';
+            ctx.font = 'bold 12px Cairo';
+            ctx.textAlign = 'center';
+            ctx.fillText(`بطارية (${voltage}V)`, batteryX, batteryY + 4);
+
+            // Draw Resistor at top center
+            const resistorX = width / 2;
+            const resistorY = rectY;
+            
+            ctx.fillStyle = '#1e293b';
+            ctx.strokeStyle = '#f43f5e';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(resistorX - 50, resistorY - 18, 100, 36, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#fca5a5';
+            ctx.font = 'bold 12px Cairo';
+            ctx.textAlign = 'center';
+            ctx.fillText(`مقاومة (${resistance}Ω)`, resistorX, resistorY + 4);
+
+            // Calculate path points for electron animation
+            // Perimeter of rounded rect = 2*(rectW - 2*cornerRadius) + 2*(rectH - 2*cornerRadius) + 2*PI*cornerRadius
+            const straightW = rectW - 2 * cornerRadius;
+            const straightH = rectH - 2 * cornerRadius;
+            const arcLen = 2 * Math.PI * cornerRadius;
+            const totalPerimeter = 2 * straightW + 2 * straightH + arcLen;
+
+            for (let el of electrons) {
+                const dist = el.progress * totalPerimeter;
+                let px = 0, py = 0;
+
+                // Trace along rounded rectangle segments
+                if (dist < straightW) {
+                    // Top edge (right to left or left to right depending on convention)
+                    px = rectX + cornerRadius + dist;
+                    py = rectY;
+                } else if (dist < straightW + arcLen / 4) {
+                    // Top-right corner
+                    const d = dist - straightW;
+                    const angle = -Math.PI/2 + (d / (arcLen/4)) * (Math.PI/2);
+                    px = rectX + rectW - cornerRadius + cornerRadius * Math.cos(angle);
+                    py = rectY + cornerRadius + cornerRadius * Math.sin(angle);
+                } else if (dist < straightW + arcLen / 4 + straightH) {
+                    // Right edge
+                    const d = dist - (straightW + arcLen / 4);
+                    px = rectX + rectW;
+                    py = rectY + cornerRadius + d;
+                } else if (dist < straightW + 2 * (arcLen / 4) + straightH) {
+                    // Bottom-right corner
+                    const d = dist - (straightW + arcLen / 4 + straightH);
+                    const angle = 0 + (d / (arcLen/4)) * (Math.PI/2);
+                    px = rectX + rectW - cornerRadius + cornerRadius * Math.cos(angle);
+                    py = rectY + rectH - cornerRadius + cornerRadius * Math.sin(angle);
+                } else if (dist < 2 * straightW + 2 * (arcLen / 4) + straightH) {
+                    // Bottom edge
+                    const d = dist - (straightW + 2 * (arcLen / 4) + straightH);
+                    px = rectX + rectW - cornerRadius - d;
+                    py = rectY + rectH;
+                } else if (dist < 2 * straightW + 3 * (arcLen / 4) + straightH) {
+                    // Bottom-left corner
+                    const d = dist - (2 * straightW + 2 * (arcLen / 4) + straightH);
+                    const angle = Math.PI/2 + (d / (arcLen/4)) * (Math.PI/2);
+                    px = rectX + cornerRadius + cornerRadius * Math.cos(angle);
+                    py = rectY + rectH - cornerRadius + cornerRadius * Math.sin(angle);
+                } else if (dist < 2 * straightW + 3 * (arcLen / 4) + 2 * straightH) {
+                    // Left edge
+                    const d = dist - (2 * straightW + 3 * (arcLen / 4) + straightH);
+                    px = rectX;
+                    py = rectY + rectH - cornerRadius - d;
+                } else {
+                    // Top-left corner
+                    const d = dist - (2 * straightW + 3 * (arcLen / 4) + 2 * straightH);
+                    const angle = Math.PI + (d / (arcLen/4)) * (Math.PI/2);
+                    px = rectX + cornerRadius + cornerRadius * Math.cos(angle);
+                    py = rectY + cornerRadius + cornerRadius * Math.sin(angle);
+                }
+
+                // Draw electron particle
+                ctx.shadowColor = '#38bdf8';
+                ctx.shadowBlur = 8;
+                ctx.fillStyle = '#38bdf8';
+                ctx.beginPath();
+                ctx.arc(px, py, el.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // Initialize update and animation loop
+        updateOhm();
+        window.onload = function() {
+            animate();
+        };
+    </script>
+</body>
+</html>
