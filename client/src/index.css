@@ -118,3 +118,64 @@ body { background:#e7c7ae; }
 .neon-frame { border-color:rgba(245,230,211,.34); box-shadow:0 0 0 1px rgba(245,230,211,.10),0 0 28px 4px rgba(245,230,211,.16),0 0 70px 18px rgba(245,230,211,.10),inset 0 0 22px rgba(245,230,211,.13),0 18px 58px -25px rgba(115,59,75,.22); }
 @media (max-width:900px){ .interactive-final .browser-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:600px){ .interactive-final .browser-grid { grid-template-columns:1fr; } .interactive-final .browser-screen { aspect-ratio:1.9; } }
+
+/* Luxury mirror-edge frame system: layered cream/Beige #F5E6D3, no green/cyber glow. */
+:where(.section-pad,.browser-card,.video-card,.audio-card,.doc-card,.research-minimal,.skills-section,.about-grid,.achievement-section,.contact-section) {
+  position:relative;
+  isolation:isolate;
+  border:1px solid rgba(245,230,211,.62);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,252,244,.72),
+    inset 0 0 15px rgba(255,252,244,.16),
+    0 0 0 1px rgba(245,230,211,.22),
+    0 0 18px 2px rgba(245,230,211,.16),
+    0 18px 46px -34px rgba(115,59,75,.24);
+}
+:where(.section-pad,.browser-card,.video-card,.audio-card,.doc-card,.research-minimal,.skills-section,.about-grid,.achievement-section,.contact-section)::before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  pointer-events:none;
+  inset:5px;
+  border:1px solid rgba(255,252,244,.78);
+  box-shadow:
+    inset 0 0 9px rgba(255,255,250,.22),
+    inset 0 0 22px rgba(245,230,211,.13);
+  border-radius:inherit;
+}
+:where(.section-pad,.browser-card,.video-card,.audio-card,.doc-card,.research-minimal,.skills-section,.about-grid,.achievement-section,.contact-section)::after {
+  content:"";
+  position:absolute;
+  z-index:-2;
+  pointer-events:none;
+  inset:-5px;
+  border:1px solid rgba(245,230,211,.46);
+  box-shadow:
+    0 0 0 1px rgba(255,252,244,.16),
+    0 0 24px 4px rgba(245,230,211,.16),
+    0 0 58px 14px rgba(245,230,211,.10);
+  border-radius:inherit;
+  opacity:.62;
+  animation:mirror-edge-pulse 10s ease-in-out infinite;
+}
+.browser-card > *, .video-card > *, .audio-card > *, .doc-card > *, .research-minimal > *, .skills-section > *, .about-grid > *, .achievement-section > *, .contact-section > * { position:relative; z-index:1; }
+.interactive-final .browser-card { border-color:rgba(245,230,211,.78); box-shadow:inset 0 0 0 1px rgba(255,252,244,.82),inset 0 0 18px rgba(255,252,244,.18),0 0 0 1px rgba(245,230,211,.26),0 0 22px 3px rgba(245,230,211,.18),0 18px 42px -30px rgba(115,59,75,.28); }
+.interactive-final .browser-card::before { inset:4px; border-color:rgba(255,255,250,.86); }
+.interactive-final .browser-card::after { inset:-4px; opacity:.72; }
+
+/* All primary/action controls carry the Mulled Berry edge. */
+.pill-button,.nav-cta,.contact-link,.lang-toggle,.modal-close,.play-button {
+  border:1px solid var(--berry) !important;
+  box-shadow:0 0 0 1px rgba(115,59,75,.10),0 5px 18px -12px rgba(115,59,75,.36);
+}
+.pill-button:hover,.nav-cta:hover,.contact-link:hover,.lang-toggle:hover,.lang-toggle:focus-visible,.modal-close:hover,.play-button:hover {
+  border-color:#733B4B !important;
+  box-shadow:0 0 0 1px rgba(115,59,75,.16),0 0 16px 2px rgba(245,230,211,.25),0 8px 22px -12px rgba(115,59,75,.42);
+}
+@keyframes mirror-edge-pulse {
+  0%,100% { opacity:.48; filter:blur(0); }
+  50% { opacity:.72; filter:blur(.35px); }
+}
+@media (prefers-reduced-motion:reduce) {
+  :where(.section-pad,.browser-card,.video-card,.audio-card,.doc-card,.research-minimal,.skills-section,.about-grid,.achievement-section,.contact-section)::after { animation:none; }
+}
