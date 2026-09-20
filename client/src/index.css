@@ -100,3 +100,21 @@ body { background:#e7c7ae; }
 .contact-link { border-color:rgba(245,230,211,.66); }
 .retro-pc .pc-base i { background:#b9a48d; box-shadow:none; }
 @media (prefers-reduced-motion:reduce){ .browser-card:hover,.selected-piece:hover,.video-card:hover,.doc-card:hover,.audio-card:hover,.mosaic-item:hover { box-shadow:0 16px 42px -31px rgba(115,59,75,.22); } }
+
+/* Editorial layout correction: interactive work leads the archive, with quieter compact previews. */
+.interactive-final .browser-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.interactive-final .browser-screen { aspect-ratio:2.15; }
+.interactive-final .browser-copy { padding:16px 17px 18px; }
+.interactive-final .browser-copy h3 { font-size:clamp(20px,2vw,25px); margin-top:8px; }
+.interactive-final .browser-copy p { min-height:46px; margin-bottom:16px; }
+.interactive-final .browser-top { padding:9px 11px; }
+/* Multiple diffuse cream layers: ambient mirror-edge light, never a green/blue LED line. */
+.section-pad { border:1px solid rgba(245,230,211,.22); box-shadow:0 0 0 1px rgba(245,230,211,.08),0 0 24px 3px rgba(245,230,211,.12),0 24px 64px -44px rgba(115,59,75,.24),inset 0 0 30px rgba(245,230,211,.07); }
+.section-block,.interactive-final,.achievement-section,.video-section,.audio-section,.docs-section,.research-minimal,.skills-section,.about-grid,.contact-section { border-color:rgba(245,230,211,.34); }
+.interactive-final { box-shadow:0 0 0 1px rgba(245,230,211,.10),0 0 34px 7px rgba(245,230,211,.16),0 30px 70px -48px rgba(115,59,75,.25),inset 0 0 38px rgba(245,230,211,.08); }
+.interactive-final .browser-card { border:1px solid rgba(245,230,211,.56); box-shadow:0 0 0 1px rgba(245,230,211,.10),0 0 22px 3px rgba(245,230,211,.14),0 16px 34px -27px rgba(115,59,75,.24); }
+.interactive-final .browser-card:hover { box-shadow:0 0 0 1px rgba(245,230,211,.18),0 0 30px 7px rgba(245,230,211,.24),0 20px 44px -27px rgba(115,59,75,.30); }
+.browser-top,.browser-screen,.browser-copy { border-color:rgba(245,230,211,.26); }
+.neon-frame { border-color:rgba(245,230,211,.34); box-shadow:0 0 0 1px rgba(245,230,211,.10),0 0 28px 4px rgba(245,230,211,.16),0 0 70px 18px rgba(245,230,211,.10),inset 0 0 22px rgba(245,230,211,.13),0 18px 58px -25px rgba(115,59,75,.22); }
+@media (max-width:900px){ .interactive-final .browser-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px){ .interactive-final .browser-grid { grid-template-columns:1fr; } .interactive-final .browser-screen { aspect-ratio:1.9; } }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -10,7 +10,6 @@ import {
   Headphones,
   Image as ImageIcon,
   Linkedin,
-  Maximize2,
   Play,
   Radio,
   Sparkles,
@@ -105,7 +104,6 @@ export default function Home() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [lang, setLang] = useState<"en" | "ar">("en");
   const tx = (en: string, ar: string) => lang === "ar" ? ar : en;
-  const featured = useMemo(() => imageWorks.slice(0, 3), []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -123,17 +121,17 @@ export default function Home() {
 
   return <div className="portfolio-shell" data-lang={lang}>
     <div className="neon-frame" aria-hidden="true" />
-    <header className="topbar"><a href="#top" className="brand-mark">TA<span>·</span>26</a><nav><a href="#work">{tx("Selected work", "أعمال مختارة")}</a><a href="#interactive">{tx("Interactive", "تفاعلي")}</a><a href="#research">{tx("Research", "الأبحاث")}</a><a href="#contact">{tx("Contact", "تواصل")}</a></nav><button className="lang-toggle" type="button" aria-label={tx("Switch to Arabic", "التبديل إلى الإنجليزية")} onClick={() => setLang(lang === "en" ? "ar" : "en")}>{lang === "en" ? "عربي" : "EN"}</button><a className="nav-cta" href={liveLinks.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn <ArrowUpRight size={14} /></a></header>
+    <header className="topbar"><a href="#top" className="brand-mark">TA<span>·</span>26</a><nav><a href="#interactive">{tx("Interactive", "تفاعلي")}</a><a href="#research">{tx("Research", "الأبحاث")}</a><a href="#contact">{tx("Contact", "تواصل")}</a></nav><button className="lang-toggle" type="button" aria-label={tx("Switch to Arabic", "التبديل إلى الإنجليزية")} onClick={() => setLang(lang === "en" ? "ar" : "en")}>{lang === "en" ? "عربي" : "EN"}</button><a className="nav-cta" href={liveLinks.linkedin} target="_blank" rel="noreferrer"><Linkedin size={15} /> LinkedIn <ArrowUpRight size={14} /></a></header>
 
     <main id="top">
       <section className="hero section-pad">
-        <div className="hero-copy"><div className="kicker"><Sparkles size={14} /> {tx("DIGITAL EXHIBITION / 2026", "معرض رقمي / ٢٠٢٦")}</div><h1>Tamara<br /><em>Al‑Shabatat</em></h1><p className="hero-lede">{tx("Digital work with a human signal — training, storytelling, communication, and interactive experiences shaped into one living archive.", "أعمال رقمية تجمع التدريب والسرد والتواصل والتجارب التفاعلية في أرشيف حي واحد.")}</p><div className="role-row"><span>{tx("Digital Skills Trainer", "مدرب مهارات رقمية")}</span><span>{tx("Media & Communications Officer", "مسؤول إعلام واتصال")}</span><span>{tx("Trainee Affairs Officer", "مسؤول شؤون متدربين")}</span></div><div className="hero-actions"><a className="pill-button filled" href="#work">{tx("Enter the exhibition", "ادخل إلى المعرض")} <ArrowDownRight size={17} /></a><a className="text-link" href="#about">{tx("Read the story", "اقرأ القصة")} <ArrowDownRight size={15} /></a></div></div>
+        <div className="hero-copy"><div className="kicker"><Sparkles size={14} /> {tx("DIGITAL EXHIBITION / 2026", "معرض رقمي / ٢٠٢٦")}</div><h1>Tamara<br /><em>Al‑Shabatat</em></h1><p className="hero-lede">{tx("Digital work with a human signal — training, storytelling, communication, and interactive experiences shaped into one living archive.", "أعمال رقمية تجمع التدريب والسرد والتواصل والتجارب التفاعلية في أرشيف حي واحد.")}</p><div className="role-row"><span>{tx("Digital Skills Trainer", "مدرب مهارات رقمية")}</span><span>{tx("Media & Communications Officer", "مسؤول إعلام واتصال")}</span><span>{tx("Trainee Affairs Officer", "مسؤول شؤون متدربين")}</span></div><div className="hero-actions"><a className="pill-button filled" href="#interactive">{tx("Enter the exhibition", "ادخل إلى المعرض")} <ArrowDownRight size={17} /></a><a className="text-link" href="#about">{tx("Read the story", "اقرأ القصة")} <ArrowDownRight size={15} /></a></div></div>
         <div className="hero-stage"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="hero-sticker sticker-a">WORK<br /><strong>WITH<br />PURPOSE</strong></div><div className="hero-art"><img src={driveThumbs.tamara} alt="Tamara portfolio visual" /><span className="art-caption">01 / portrait study<br />Aqaba, Jordan</span></div><div className="retro-pc"><div className="pc-screen">C:\&gt; TAMARA_OS<br />&gt; LOADING SKILLS...<br />&gt; READY <b>_</b></div><div className="pc-base"><i /><span /><i /></div></div><div className="floating-tag">SHE BUILDS<br /><b>USEFUL MAGIC</b></div></div>
       </section>
 
       <section className="marquee-strip"><div>REAL WORK <span>✦</span> REAL STORIES <span>✦</span> DIGITAL SKILLS <span>✦</span> MEDIA & COMMUNICATIONS <span>✦</span> INTERACTIVE EXPERIENCES <span>✦</span></div></section>
 
-      <section id="work" className="section-pad section-block"><SectionHeading index="01" eyebrow="Selected work" title={tx("A portfolio with a pulse.", "ملف أعمال نابض بالحياة.")} subtitle="A visual index of the strongest work from the original Drive archive — arranged as an exhibition, not a file browser." /><div className="selected-grid">{featured.map((work, i) => <article key={work.title} className={`selected-piece piece-${i + 1}`} onClick={() => setLightbox(work.image)}><div className="piece-image"><img src={work.image} alt={work.title} /><span className="piece-hover"><Maximize2 size={18} /> View image</span></div><div className="piece-meta"><span>0{i + 1}</span><div><h3>{work.title}</h3><p>{work.category}</p></div><ArrowUpRight size={18} /></div></article>)}</div></section>
+      <section id="interactive" className="section-pad section-block interactive-final"><SectionHeading index="01" eyebrow={tx("Interactive Projects", "مشاريع تفاعلية")} title={tx("Click into the work.", "ادخل إلى التجربة.")} subtitle={tx("Real interfaces, real destinations, and browser frames that make the experience immediately tangible.", "واجهات حقيقية ووجهات فعلية وإطارات متصفح تجعل التجربة ملموسة فورًا.")} /><div className="browser-grid">{interactiveProjects.map(project => <BrowserMockup key={project.title} {...project} />)}</div></section>
 
       <section id="achievement" className="achievement-section section-pad"><div className="award-graphic"><Trophy size={48} /><span>01</span></div><div><p className="eyebrow">Major achievement</p><h2>1st Place</h2><p className="award-title">University Graduation Project</p><p className="award-project">University Announcement System</p><p className="award-note">A clear, useful communication idea — recognized at the moment where education, technology, and public service meet.</p></div><Award className="award-icon" size={44} /></section>
       <section className="section-pad section-block video-section"><SectionHeading index="04" eyebrow="Media studies" title={tx("Videos, in motion.", "فيديوهات تتحرك.")} subtitle="Six real edits from the Drive archive, visible at once — with the original whale cut intentionally kept out of the interface." /><div className="video-grid">{videoData.map(video => <article className="video-card" key={video.id}><button className="video-thumb" onClick={() => setActiveVideo(video.src)}><img src={video.thumb} alt={video.title} loading="lazy" /><span className="play-button"><Play size={18} fill="currentColor" /></span><span className="video-duration">{video.duration}</span></button><div className="video-copy"><span>VIDEO / {video.duration}</span><h3>{video.title}</h3><p>{video.desc}</p></div></article>)}</div></section>
@@ -151,8 +149,7 @@ export default function Home() {
 
       <section id="contact" className="contact-section section-pad"><div><p className="eyebrow">10 / Contact</p><h2>{tx("Let’s create", "لنصنع")}<br /><em>{tx("something digital.", "شيئًا رقميًا.")}</em></h2></div><div className="contact-actions"><a className="contact-link" href={liveLinks.linkedin} target="_blank" rel="noreferrer"><Linkedin size={21} /> LinkedIn <ArrowUpRight size={18} /></a></div></section>
 
-      <section id="interactive" className="section-pad section-block interactive-final"><SectionHeading index="11" eyebrow={tx("Interactive Projects", "مشاريع تفاعلية")} title={tx("Click into the work.", "ادخل إلى التجربة.")} subtitle={tx("Real interfaces, real destinations, and browser frames that make the experience immediately tangible.", "واجهات حقيقية ووجهات فعلية وإطارات متصفح تجعل التجربة ملموسة فورًا.")} /><div className="browser-grid">{interactiveProjects.map(project => <BrowserMockup key={project.title} {...project} />)}</div></section>
-    </main>
+          </main>
 
     <footer><span>© 2026 Tamara Al‑Shabatat</span><span>Built as a living exhibition</span><span>Amman / Aqaba / Everywhere</span></footer>
     {lightbox && <div className="modal" role="dialog" aria-modal="true" onClick={() => setLightbox(null)}><button className="modal-close" onClick={() => setLightbox(null)}><X size={22} /></button><img src={lightbox} alt="Expanded portfolio work" onClick={e => e.stopPropagation()} /></div>}
