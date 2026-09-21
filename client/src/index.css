@@ -179,3 +179,43 @@ body { background:#e7c7ae; }
 @media (prefers-reduced-motion:reduce) {
   :where(.section-pad,.browser-card,.video-card,.audio-card,.doc-card,.research-minimal,.skills-section,.about-grid,.achievement-section,.contact-section)::after { animation:none; }
 }
+
+/* Aurora name: liquid rose/burgundy light clipped inside crisp letterforms. */
+.hero h1.aurora-name {
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  color:transparent;
+  background-image:
+    radial-gradient(circle at 18% 35%, rgba(247,135,154,.98) 0 7%, transparent 25%),
+    radial-gradient(circle at 76% 68%, rgba(121,34,48,.98) 0 14%, transparent 38%),
+    linear-gradient(112deg, #4b080c 0%, #792230 22%, #f7879a 42%, #792230 61%, #4b080c 82%, #f7879a 100%);
+  background-size:220% 220%, 240% 240%, 320% 100%;
+  background-position:12% 46%, 86% 54%, 0% 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:
+    0 0 1px rgba(255,252,244,.82),
+    0 0 6px rgba(245,230,211,.66),
+    0 0 15px rgba(245,230,211,.26),
+    0 10px 28px rgba(115,59,75,.13);
+  animation:aurora-flow 12s ease-in-out infinite, aurora-breathe 7s ease-in-out infinite;
+}
+.hero h1.aurora-name span { display:block; }
+@keyframes aurora-flow {
+  0%,100% { background-position:12% 46%,86% 54%,0% 50%; }
+  25% { background-position:44% 28%,62% 72%,34% 50%; }
+  50% { background-position:78% 58%,28% 38%,68% 50%; }
+  75% { background-position:52% 78%,74% 24%,42% 50%; }
+}
+@keyframes aurora-breathe {
+  0%,100% { text-shadow:0 0 1px rgba(255,252,244,.82),0 0 6px rgba(245,230,211,.60),0 0 15px rgba(245,230,211,.22),0 10px 28px rgba(115,59,75,.13); }
+  50% { text-shadow:0 0 1px rgba(255,252,244,.96),0 0 7px rgba(245,230,211,.76),0 0 19px rgba(245,230,211,.32),0 10px 30px rgba(115,59,75,.16); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero h1.aurora-name { animation:none; background-position:50% 50%,50% 50%,50% 50%; }
+}
+@media (max-width:600px) {
+  .hero h1.aurora-name { font-size:clamp(58px,17vw,92px); }
+}
